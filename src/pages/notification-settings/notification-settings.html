@@ -1,0 +1,25 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{ 'NOTIFICATION.TITLE' | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-item>
+        <ion-label>{{ 'NOTIFICATION.NEW_MATCHES' | translate }}</ion-label>
+        <ion-toggle [(ngModel)]="newMatches" (ionChange)="changePreferances()"></ion-toggle>
+    </ion-item>
+    <ion-item>
+        <ion-label>{{ 'NOTIFICATION.MESSAGES' | translate }}</ion-label>
+        <ion-toggle [(ngModel)]="messages" (ionChange)="changePreferances()"></ion-toggle>
+    </ion-item>
+    <ion-item>
+        <ion-label>{{ 'NOTIFICATION.VIBRATIONS' | translate }}</ion-label>
+        <ion-toggle [(ngModel)]="inAppSound" (ionChange)="changePreferances()"></ion-toggle>
+    </ion-item>
+    <ion-item>
+        <ion-label>{{ 'NOTIFICATION.SOUNDS' | translate }}</ion-label>
+        <ion-toggle [(ngModel)]="inappVibrations" (ionChange)="changePreferances()"></ion-toggle>
+    </ion-item>
+</ion-content>

@@ -1,0 +1,75 @@
+page-add-appointment {
+    .add-appointment-container {
+        .cal-title {
+            color: #2E7EF5;
+            font-weight: bold;
+            font-size: 18px;
+            text-align: center;
+        }
+        .add-btn {
+            width: 100%;
+            background: linear-gradient(to right, #0653FE, #3484f4);
+            color: white;
+        }
+    }
+    .list-ios>.item-block:last-child,
+    .list-ios>.item-wrapper:last-child .item-block {
+        border-bottom: 0;
+    }
+    .list-ios>.item-block:first-child {
+        border-top: 0;
+    }
+    .list-ios {
+        margin: 0;
+    }
+    .datetime-ios {
+        padding: 11px 8px 11px 16px;
+        color: #4A4A4A;
+    }
+    .no-events-label[_ngcontent-c0] {
+        font-weight: bold;
+        color: darkgrey;
+        text-align: center;
+        visibility: hidden;
+    }
+    [_nghost-c0]>div[_ngcontent-c0] {
+        height: 50% !important;
+    }
+    small {
+        font-size: 75%;
+        color: #919191;
+        text-transform: uppercase
+    }
+    .text-muted[_ngcontent-c1] {
+        color: #D5D5D5;
+    }
+    .content-ios {
+        color: #727272;
+        background-color: #fff;
+    }
+    .table-bordered[_ngcontent-c1]>thead[_ngcontent-c1]>tr[_ngcontent-c1]>th[_ngcontent-c1],
+    .table-bordered[_ngcontent-c1]>tbody[_ngcontent-c1]>tr[_ngcontent-c1]>th[_ngcontent-c1],
+    .table-bordered[_ngcontent-c1]>tfoot[_ngcontent-c1]>tr[_ngcontent-c1]>th[_ngcontent-c1],
+    .table-bordered[_ngcontent-c1]>thead[_ngcontent-c1]>tr[_ngcontent-c1]>td[_ngcontent-c1],
+    .table-bordered[_ngcontent-c1]>tbody[_ngcontent-c1]>tr[_ngcontent-c1]>td[_ngcontent-c1],
+    .table-bordered[_ngcontent-c1]>tfoot[_ngcontent-c1]>tr[_ngcontent-c1]>td[_ngcontent-c1] {
+        border: 0;
+    }
+    .table[_ngcontent-c1]>thead[_ngcontent-c1]>tr[_ngcontent-c1]>th[_ngcontent-c1] {
+        vertical-align: bottom;
+        border-bottom: 0;
+    }
+    .table-bordered[_ngcontent-c1] {
+        border: 0;
+    }
+    .monthview-datetable[_ngcontent-c1] td[_ngcontent-c1] {
+        cursor: pointer;
+        text-align: center;
+        padding: 13px !important;
+    }
+    .monthview-selected[_ngcontent-c1] {
+        background-color: #D5D5D5;
+        color: white;
+        border-radius: 50%;
+    }
+}

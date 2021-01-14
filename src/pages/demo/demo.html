@@ -1,0 +1,60 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title (click)="goToSettings()">{{ 'DEMO.TITLE' | translate}}</ion-title>
+        <ion-buttons end>
+            <button ion-button (click)="goToSettings()"><img src="assets/imgs/profile.png" /></button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content padding class="home-container">
+    <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="swipeLeft($event)" (throwoutright)="goToSettings()" id="card-stack">
+        <div *ngIf="cards.length > 0">
+            <ion-card #mycards1 swing-card *ngFor="let p of cards" id="{{p.id +'|'+ p.user_id}}">
+                <ion-row class="card-row">
+                    <p *ngIf="!p.image_path" id="back-imgunavail">{{ 'DEMO.NOT_FOUND' | translate}}</p>
+                    <ion-col col-12 class="slide-container card-image">
+                        <img [src]="imageUrl + p.image_path">
+                    </ion-col>
+                </ion-row>
+                <ion-row class="iconsrow">
+                    <ion-col>
+                        <button ion-button round class="centr1" (click)="makeRequest(p.id,p.user_id, null)">
+              <ion-icon name="md-arrow-round-back" class="reload-icon"></ion-icon>
+            </button>
+                    </ion-col>
+                    <ion-col>
+                        <button ion-button round class="centr" (click)="makeRequest(p.id,p.user_id, null)">
+              <ion-icon name="md-close" class="cancel-icon"></ion-icon>
+            </button>
+                    </ion-col>
+                    <!-- <ion-col>
+                        <button ion-button round class="centr">
+              <ion-icon name="md-star" class="star-icon"></ion-icon>
+            </button>
+                    </ion-col> -->
+                    <ion-col>
+                        <button ion-button icon-only round class="centr" (click)="goToSettings()">
+              <ion-icon name="md-thumbs-up" class="like-icon"></ion-icon>
+            </button>
+                    </ion-col>
+                    <ion-col>
+                        <button ion-button round class="centr1" (click)="propertyDetail(p.alldata)">
+              <ion-icon name="md-information" class="detail-icon"></ion-icon>
+            </button>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="property-details">
+                    <h3 class="property-title">
+                        {{ p.title}} {{getPropertyString(p.alldata.property_type)}}
+                    </h3>
+                    <ion-label class="property-address">{{p.address}}</ion-label>
+                    <ion-label class="property-currency">{{ printPrice(p) }} THB
+                    </ion-label>
+                </ion-row>
+            </ion-card>
+        </div>
+        <h3 class="error" *ngIf="cards.length == 0">
+            {{ 'DEMO.ERROR' | translate}}
+        </h3>
+    </div>
+</ion-content>

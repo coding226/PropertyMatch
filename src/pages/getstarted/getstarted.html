@@ -1,0 +1,45 @@
+<ion-content class="start-container">
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12 class="home">
+                <img src="assets/imgs/home.png" />
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-12 class="middle-sec">
+                <h2>{{'GET_STARTED.TITLE' | translate}}</h2>
+                <ion-label [innerHTML]="'GET_STARTED.DESC' | translate"></ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row class="btns">
+            <ion-col col-12>
+                <button ion-button item-left class="line-btn" (click)="doLineLogin()" style="width: 70% !important">
+                    <ion-icon name="logo-line"></ion-icon> &nbsp;&nbsp;
+                    {{'GET_STARTED.SIGN_UP_LINE' | translate}}
+                </button>
+            </ion-col>
+            <ion-col col-12>
+                <button ion-button item-left class="facebook-btn" (click)="doFacebookLogin()" style="width: 70% !important">
+                    <ion-icon name="logo-facebook"></ion-icon> &nbsp;&nbsp;
+                    {{'GET_STARTED.SIGN_UP_FACEBOOK' | translate}}
+                </button>
+            </ion-col>
+            <!-- <ion-col col-12>
+                <button ion-button item-left class="google-btn" (click)="doGoogleLogin()" style="width: 70% important"><img src="assets/imgs/google.png"/> &nbsp;&nbsp; Sign up using Google</button>
+            </ion-col> -->
+            <ion-col col-12>
+                <button ion-button class="email" (tap)="signup()" style="width: 70% !important">
+                    {{'GET_STARTED.SIGN_UP_EMAIL' | translate}}
+                </button>
+            </ion-col>
+        </ion-row>
+        <ion-row class="btns">
+            <ion-col col-12 class="label">
+                <ion-label>{{'GET_STARTED.ALREADY_ACCOUNT' | translate}}</ion-label>
+            </ion-col>
+            <ion-col col-12>
+                <button ion-button class="login" (tap)="login()"> {{'GET_STARTED.LOGIN' | translate}} </button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

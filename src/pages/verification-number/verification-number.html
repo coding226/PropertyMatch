@@ -1,0 +1,45 @@
+<ion-content padding class="verify-container">
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12 class="home">
+                <img src="assets/imgs/blue-home.png" />
+            </ion-col>
+        </ion-row>
+        <ion-row class="middle-sec">
+            <ion-col col-12>
+                <h2>{{ 'VERIFICATION_NUMBER.VERIFICATION_CODE' | translate}}</h2>
+            </ion-col>
+            <ion-col col-12 style="margin-top: 30px;margin-bottom: 10px;text-align:center; display: flex;justify-content: center;">
+                <div class="verify-code" style="margin-left: 30px;">
+                    <input #inputFirst type="tel" value="" maxlength="1" (keyup)="setfocus('inputSecond')" [(ngModel)]="value1" autofocus>
+                </div>
+                <div class="verify-code">
+                    <input #inputSecond type="tel" value="" maxlength="1" (keyup)="setfocus('inputThird')" [(ngModel)]="value2">
+                </div>
+                <div class="verify-code">
+                    <input #inputThird type="tel" value="" maxlength="1" (keyup)="setfocus('inputFour')" [(ngModel)]="value3">
+                </div>
+                <div class="verify-code">
+                    <input #inputFour type="tel" value="" maxlength="1" (keyup)="setfocus('inputFive')" [(ngModel)]="value4">
+                </div>
+                <div class="verify-code">
+                    <input #inputFive type="tel" value="" maxlength="1" (keyup)="setfocus('inputSix')" [(ngModel)]="value5">
+                </div>
+                <div class="verify-code">
+                    <input #inputSix type="tel" value="" maxlength="1" [(ngModel)]="value6">
+                </div>
+            </ion-col>
+            <ion-col col-12>
+                <h2 style="font-size: 12px;">{{ 'VERIFICATION_NUMBER.RESEND_SMS_IN' | translate}} {{countDown | async | countdown}}</h2>
+            </ion-col>
+        </ion-row>
+        <ion-row class="btns">
+            <ion-col col-6>
+                <button ion-button class="signup" (click)="doVerify()"> {{ 'VERIFICATION_NUMBER.CONTINUE' | translate}} </button>
+            </ion-col>
+            <ion-col col-6>
+                <button ion-button class="signup" (click)="resendCode()" [disabled]="counter != 0"> {{ 'VERIFICATION_NUMBER.RESEND_SMS' | translate}} </button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

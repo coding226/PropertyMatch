@@ -1,0 +1,51 @@
+<ion-header *ngIf="settings">
+
+    <ion-navbar>
+        <ion-title>{{ 'PHONENUMBER.TITLE' | translate }}</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content class="phonenumber-container" padding>
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12 class="home">
+                <img src="assets/imgs/blue-home.png" />
+            </ion-col>
+        </ion-row>
+        <ion-row class="middle-sec">
+            <ion-col col-12>
+                <h2>{{ 'PHONENUMBER.WHAT_NUMBER' | translate }}</h2>
+            </ion-col>
+            <ion-col col-12 style="margin-top: 30px;text-align:center">
+                <ion-list>
+                    <ion-item style="background:#F7F7F7">
+                        <ion-label class="color" style="display: flex;align-items: center;margin: 0px;padding: 0px;margin-left: 2%;">
+                            <ion-icon name="flag"></ion-icon>
+                            <span class="coun" style="margin-left: 11%;">{{ 'PHONENUMBER.COUNTRY' | translate }}</span>
+                        </ion-label>
+                        <ion-select [(ngModel)]="code" multiple="false" class="countyrcode">
+                            <ion-option *ngFor="let c of callingcodes;">{{c.dial_code}}, {{c.name}} </ion-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-list>
+                <ion-list>
+                    <ion-item style="background:#F7F7F7">
+                        <ion-label class="icon">
+                            <ion-icon name="call"></ion-icon>
+                        </ion-label>
+                        <ion-input clearInput type="tel" [placeholder]="'PHONENUMBER.MOBILE_NUMBER' | translate" [(ngModel)]="mobile_number"></ion-input>
+                    </ion-item>
+                    <ion-label class="msg">
+                        {{ 'PHONENUMBER.NUMBER_DESC' | translate }}
+                    </ion-label>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+        <ion-row class="btns">
+            <ion-col col-12>
+                <button ion-button class="signup" (click)="continue()"> {{ 'PHONENUMBER.CONTINUE' | translate }} </button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

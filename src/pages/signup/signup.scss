@@ -1,0 +1,117 @@
+page-signup {
+    .signup-container {
+        .coun {
+            margin-left: 13%;
+            font-size: 12px;
+            color: #999999;
+        }
+        .home {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .middle-sec {
+            text-align: center;
+            margin-top: 40px;
+            .icon {
+                color: #c8c8c8;
+            }
+            .msg {
+                font-size: 12px;
+                color: #c8c8c8;
+            }
+        }
+        .btns {
+            text-align: center;
+            .label {
+                color: #4a4a4a;
+            }
+            .signup {
+                width: 80%;
+                background: linear-gradient(to right, #0653fe, #3484f4);
+                color: white;
+            }
+        }
+        .btns2 {
+            text-align: center;
+            margin-top: 10px;
+            .label {
+                color: #4a4a4a;
+            }
+            a {
+                color: #4a4a4a;
+                text-decoration: underline;
+            }
+        }
+    }
+    [col-12] {
+        padding: 0px;
+    }
+    ion-label {
+        margin: 0;
+        display: block;
+        overflow: hidden;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        font-size: inherit;
+        text-overflow: ellipsis;
+        white-space: normal;
+    }
+    .list-ios {
+        margin: -1px 0 8px;
+    }
+    .input-ios[clearInput] {
+        position: relative;
+        padding: 5px;
+    }
+    .list-ios>.item-block:last-child,
+    .list-ios>.item-wrapper:last-child .item-block {
+        border-bottom: 0.55px solid #f7f7f7;
+    }
+    .list-ios>.item-block:first-child {
+        border-top: 0.55px solid #f7f7f7;
+    }
+    .input-ios[clearInput] .text-input {
+        padding-right: 30px;
+        font-size: 12px;
+    }
+    .select-ios .select-icon .select-icon-inner {
+        left: 5px;
+        top: 50%;
+        margin-top: -2px;
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-top: 5px solid;
+        border-right: 5px solid transparent;
+        border-left: 5px solid transparent;
+        color: #999;
+        pointer-events: none;
+        visibility: hidden;
+    }
+    .select-ios {
+        padding: 11px 8px 11px 16px;
+        // margin-right: 200px;
+        font-size: 12px;
+    }
+    .scroll-content {
+        /* left: 0; */
+        right: 0;
+        top: 0;
+        bottom: 0;
+        position: absolute;
+        z-index: 1;
+        display: block;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        contain: size style layout;
+    }
+
+    .passwordIcon {
+       font-size:2.3rem !important;
+       position: relative !important;
+       top: 3px !important;
+       margin: 0 auto !important;
+    }
+}

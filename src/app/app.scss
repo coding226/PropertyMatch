@@ -1,0 +1,183 @@
+// http://ionicframework.com/docs/theming/
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+.tabs-ios .tabbar{
+    border-top: none !important;
+    background: transparent !important;
+}
+
+.toolbar-title-ios {
+    text-align: center;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: #666666;
+    pointer-events: auto;
+}
+
+.tabs-ios .tab-button[aria-selected="true"] .tab-button-icon {
+    color: #4B84D9;
+}
+
+.tabs-ios .tab-button:hover:not(.disable-hover),
+.tabs-ios .tab-button[aria-selected="true"] {
+    color: #4B84D9;
+}
+
+.tabs-ios .tab-button-icon {
+    margin-top: 4px;
+    margin-bottom: 1px;
+    min-width: 35px;
+    height: 30px;
+    font-size: 30px;
+    color: #4B84D9;
+}
+
+.segment-ios .segment-button.segment-activated {
+    color: #fff;
+    background-color: #4B84D9;
+    opacity: 1;
+    -webkit-transition: 100ms all linear;
+    transition: 100ms all linear;
+}
+
+.segment-ios .segment-button {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    width: 0;
+    height: 5.2rem;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #4B84D9;
+    font-size: 1.3rem;
+    line-height: 3rem;
+    color: #488aff;
+    background-color: transparent;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.segment-ios .segment-button {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    width: 0;
+    height: 5.2rem;
+    border-width: 1px;
+    border-left-width: 1px;
+    border-style: solid;
+    border-color: #EFEFEF;
+    font-size: 1.3rem;
+    line-height: 3rem;
+    color: #4A4A4A;
+    background-color: #EFEFEF;
+    font-weight: bold;
+    padding: 10px;
+}
+
+ion-tabs.hidden div.tabbar {
+    display: none
+}
+
+.error{
+    color: #ff0000;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 10px;
+    float: left;
+}
+
+.error-highlight{
+    border: 3px solid #ff0000 !important;
+}
+.checkbox-ios .checkbox-icon {
+    border-radius: 10% !important;
+    position: relative;
+    width: 21px;
+    height: 21px;
+    border-width: 1px;
+    border-style: solid;
+}
+.checkbox-ios-dark .checkbox-checked .checkbox-inner {
+    border-color: #000000;
+}
+.checkbox-icon {
+    &.checkbox-checked {
+        border-color: #000000 !important;
+        background-color: #ffffff !important;
+    }
+    border-color: #000000 !important;
+    background-color: #ffffff !important;
+}
+//.tabbar,
+// .tabs-ios,
+// .tabs-md,
+// .tabs-wp {
+//     .tab-button-icon {
+//         background-repeat: no-repeat;
+//         background-position: center;
+//         height: 24px;
+//         width: 24px;
+//         background-size: contain;
+//         -webkit-background-size: contain;
+//         -moz-background-size: contain;
+//         -o-background-size: contain;
+//         &:before {
+//             display: none;
+//         }
+//     }
+// }
+// .tabs-ios .tabbar {
+//     -webkit-box-pack: center;
+//     -webkit-justify-content: center;
+//     -ms-flex-pack: center;
+//     justify-content: center;
+//     border-top: 0;
+//     background: #fff;
+// }
+// .tabs-ios {
+//     a[aria-selected=false] {
+//         .tab-button-icon[ng-reflect-name=message],
+//         .tab-button-icon[aria-label=message] {
+//             background-image: url(../assets/imgs/message.png);
+//         }
+//         .tab-button-icon[ng-reflect-name=profile],
+//         .tab-button-icon[aria-label=profile] {
+//             background-image: url(../assets/imgs/profile.png);
+//         }
+//         .tab-button-icon[ng-reflect-name=home],
+//         .tab-button-icon[aria-label=home] {
+//             background-image: url(../assets/imgs/center-tab.png);
+//         }
+//     }
+//     a[aria-selected=true] {
+//         .tab-button-icon[ng-reflect-name=message],
+//         .tab-button-icon[aria-label=message] {
+//             background-image: url(../assets/imgs/message.png);
+//         }
+//         .tab-button-icon[ng-reflect-name=profile],
+//         .tab-button-icon[aria-label=profile] {
+//             background-image: url(../assets/imgs/profile.png);
+//         }
+//         .tab-button-icon[ng-reflect-name=home],
+//         .tab-button-icon[aria-label=home] {
+//             background-image: url(../assets/imgs/center-tab.png);
+//         }
+//     }
+// }   }
+// }
+

@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "174552102740",
+    "firebase_url": "https://propertymatch.firebaseio.com",
+    "project_id": "propertymatch",
+    "storage_bucket": "propertymatch.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:174552102740:android:fe18a0cfef8a2df5",
+        "android_client_info": {
+          "package_name": "com.ameba.propertymatchnew"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "174552102740-mtamab0rhmq8m53g6bqch5gbh61eh1tc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOpNDvsUHwEN0C3WfibPSSRtkiaMA_cXE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "174552102740-loqljpiq2snr9g3bs0b05at198qi2i8o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "174552102740-896fj36knitltk6sbu6veestqlmkfkh4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ameba.propertymatchnew"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:174552102740:android:de95372fe5ea6cd3",
+        "android_client_info": {
+          "package_name": "com.moonoi.propertymatchnew"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "174552102740-mtamab0rhmq8m53g6bqch5gbh61eh1tc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOpNDvsUHwEN0C3WfibPSSRtkiaMA_cXE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "174552102740-loqljpiq2snr9g3bs0b05at198qi2i8o.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "174552102740-896fj36knitltk6sbu6veestqlmkfkh4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ameba.propertymatchnew"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

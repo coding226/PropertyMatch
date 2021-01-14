@@ -1,0 +1,57 @@
+page-getstarted {
+    .start-container {
+        background-image: url("../assets/imgs/background.png");
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        .home {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .middle-sec {
+            text-align: center;
+            margin-top: 20px;
+            h2 {
+                color: white;
+            }
+            ion-label {
+                margin: 0;
+                display: block;
+                overflow: hidden;
+                -webkit-box-flex: 1;
+                -webkit-flex: 1;
+                -ms-flex: 1;
+                flex: 1;
+                font-size: inherit;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                color: white;
+            }
+        }
+        .btns {
+            text-align: center;
+            margin-top: 20px;
+            .facebook-btn {
+                background: #4267B2;
+                width: 70%;
+            }
+            .google-btn {
+                background: white;
+                color: #4A4A4A;
+                 width: 70%;
+            }
+            .email {
+                width: 70%;
+            }
+            .label {
+                color: white;
+            }
+            .login {
+                background: white;
+                color: #4A4A4A;
+                width: 80%;
+            }
+        }
+    }
+}

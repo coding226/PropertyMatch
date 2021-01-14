@@ -1,0 +1,15 @@
+<ion-tabs *ngIf="showTab" #myTabs selectedIndex="1">
+	<!-- <ion-tab *ngFor="let tab of tabs" [root]="tab.root" [tabTitle]="tab.tabTitle" [tabIcon]="tab.tabIcon" tabBadge="{{tab.tabBadge}}" tabBadgeStyle="{{tab.tabBadgeStyle}}"></ion-tab> -->
+	<ion-tab [root]="'ProfilePage'" tabTitle="{{ 'TABS.PROFILE' | translate }}" [tabIcon]="'md-person'"></ion-tab>
+	<ion-tab [root]="'SeekerHomePage'" tabTitle="{{ 'TABS.HOME' | translate }}" [tabIcon]="'ios-home'"></ion-tab>
+	<ion-tab [root]="'MessagesPage'" tabTitle="{{ 'TABS.MESSAGE' | translate }}" [tabIcon]="'md-chatboxes'" [tabBadge]="tabs[2].tabBadge" [tabBadgeStyle]="tabs[2].tabBadge ? 'danger' : null"></ion-tab>
+	<!-- <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="ios-home"></ion-tab>
+	<ion-tab [root]="tab3Root" tabTitle="Messages" tabIcon="md-chatboxes" [tabBadge]="user.message_badge" tabBadgeStyle="danger"></ion-tab> -->
+</ion-tabs>
+
+
+<!-- <ion-tabs [ngClass]="{'hidden': user.hideTabs}" selectedIndex="0" *ngIf="index!=1">
+    <ion-tab [root]="tab2Root" tabIcon="md-person"></ion-tab>
+    <ion-tab [root]="tab1Root" tabIcon="ios-home"></ion-tab>
+    <ion-tab [root]="tab3Root" tabIcon="md-chatboxes" tabBadge="{{user.message_badge}}" tabBadgeStyle="danger"></ion-tab>
+</ion-tabs> -->

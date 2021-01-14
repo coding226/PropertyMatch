@@ -1,0 +1,173 @@
+page-add-property {
+    .add-new-property-container {
+        #mapDiv {
+            height: 100%;
+        }
+        .largeHeight {
+            height: 300px;
+        }
+        .smallHeight {
+            height: 0%;
+        }
+        .upload-button{
+            padding: 0px 5px;
+            border: 1px solid;
+            font-size: 10px;
+        }
+        .selected-image-container{
+            width:31%;
+            float:left;
+            padding: 2px;
+            position: relative;
+            margin-left: 5px;
+            .selected-image{
+                max-height: 120px;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .text {
+            color: #4A4A4A;
+            font-size: 12px;
+            font-weight: bold;
+            padding-left: 3px;
+        }
+        .attribute {
+            width: auto;
+            float: left;
+        }
+        .select-ios {
+            padding: 11px 8px 11px 16px;
+            float: right;
+        }
+    }
+    ion-label {
+        margin: 0;
+        display: block;
+        overflow: hidden;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        font-size: inherit;
+        text-overflow: ellipsis;
+        white-space: normal;
+    }
+
+    .list{
+        overflow-y: auto;
+    }
+
+    .list-ios>.item-block:first-child {
+        border-top: 0;
+    }
+    .list-ios .item-block .item-inner {
+        border-bottom: 0;
+    }
+    .item-ios.item-block .item-inner {
+        padding-right: 8px;
+        padding-right: 8px;
+        border-bottom: 0;
+    }
+    .list-ios:not([inset])+.list-ios:not([inset]) ion-list-header {
+        margin-top: 5px;
+        padding-top: 0;
+        text-transform: lowercase;
+        font-size: 12px;
+    }
+    .list-header-ios {
+        padding-left: 16px;
+        padding-left: 16px;
+        position: relative;
+        border-bottom: 0;
+        font-size: 1.2rem;
+        font-weight: 500;
+        letter-spacing: 0.1rem;
+        text-transform: uppercase;
+        color: #333;
+        background: transparent;
+    }
+    .list-ios>.item-block:last-child,
+    .list-ios>.item-wrapper:last-child .item-block {
+        border-bottom: 0;
+    }
+    .text-input-ios {
+        margin: 11px 8px 11px 0;
+        padding: 0;
+        width: calc(100% - 8px);
+        text-align: initial;
+        padding-left: 5px;
+    }
+    .remove-button{
+        position: absolute;
+        right: -7px;
+        top: -7px;
+        padding: 0px;
+        margin: 0px;
+        background: none;
+        color: #f70404;
+        height: 20px;
+        width: 20px;
+        font-size: 12px;
+    }
+    
+    .select{
+        background: #F7F7F7;
+        border-radius: 5px;
+        width: 100%;
+        max-width: unset;
+    }
+
+    .new-input{
+        border-radius: 5px;
+        border: 1px solid rgba(193, 192, 201, 0.48);
+    }
+
+    .error{
+        color: #ff0000;
+        font-size: 16px;
+        font-weight: bold;
+        margin-left: 10px;
+        float: left;
+        display: flex;
+        width: 100%;
+    }
+    .searchbar-ios .searchbar-input {
+        padding: 0 28px;
+        border-radius: 5px;
+        height: 3rem;
+        font-size: 1.4rem;
+        font-weight: 400;
+        color: #000;
+        background-color: #F2F2F2;
+    }
+    .searchbar-ios {
+        padding: 10px 8px;
+        min-height: 44px;
+        border-top: 0.55px solid transparent;
+        border-bottom: 0.55px solid rgba(0, 0, 0, 0.05);
+        background: #F2F2F2;
+    }
+    .searchbar-ios .searchbar-search-icon {
+        left: 9px;
+        top: 9px;
+        background-image: url("../assets/imgs/search.png");
+        margin-left: calc(50% - 60px);
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        background-repeat: no-repeat;
+        background-size: 13px;
+    }
+    .searchbar-ios .searchbar-input {
+        padding: 0 28px;
+        border-radius: 5px;
+        height: 3rem;
+        font-size: 12px;
+        font-weight: 400;
+        color: #C1C0C9;
+        background-color: #F2F2F2;
+        color: black;
+    }
+}

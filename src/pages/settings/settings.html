@@ -1,0 +1,51 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{ 'SETTINGS.TITLE' | translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="settings-container">
+    <ion-list>
+        <ion-list-header>
+            {{ 'SETTINGS.APP_SETTINGS' | translate }}
+        </ion-list-header>
+        <button ion-item (click)="personalSetting()">
+            <ion-icon name="ios-contact" item-start style="color: rgb(46, 126, 245);"></ion-icon>
+            {{ 'SETTINGS.PERSONAL_INFO' | translate }}
+            <p class="lower-text">{{ 'SETTINGS.EDIT_NAME_EMAIL_BIRTHDAY' | translate }}</p>
+
+        </button>
+        <button ion-item (click)="notificationSetting()">
+            <ion-icon name="ios-hand-outline" item-start style="color: rgb(254, 164, 14);"></ion-icon>
+            {{ 'SETTINGS.PRIVACY_NOTIFICATIONS' | translate }}
+            <p class="lower-text">{{ 'SETTINGS.ALBUM_MOMENTS' | translate }}</p>
+        </button>
+        <button ion-item (click)="phoneNumberSetting()">
+            <ion-icon name="md-lock" item-start style="color: rgb(86, 139, 218);"></ion-icon>
+            {{ 'SETTINGS.ACCOUNT_SECURITY' | translate }}
+            <p class="lower-text">{{ 'SETTINGS.PHONE_NUMBER' | translate }}</p>
+        </button>
+        <button ion-item (click)="favoritePropertiesSetting()">
+            <ion-icon name="ios-contact" item-start style="color: rgb(86, 139, 218);"></ion-icon>
+            {{ 'SETTINGS.FAVORITE_PROPERTIES' | translate }}
+            <p class="lower-text">{{ 'SETTINGS.MY_PROPERTIES' | translate }}</p>
+        </button>
+        <button ion-item (click)="LanguageSetting()">
+            <ion-icon name="globe" item-start style="color: rgb(86, 139, 218);"></ion-icon>
+            {{ 'SETTINGS.LANGUAGE' | translate }}
+            <p *ngIf="currentLang === 'th'; else langEn" class="lower-text">{{ 'CHOOSE_LANGUAGE.TH' | translate }}</p>
+            <ng-template #langEn>
+                <p class="lower-text">{{ 'CHOOSE_LANGUAGE.EN' | translate }}</p>
+            </ng-template>
+        </button>
+    </ion-list>
+    <ion-row>
+        <ion-col col-12>
+            <button ion-button color="light" outline style="width: 99%;" (tap)="purchaseBoostLikes()">
+                {{ 'SETTINGS.PURCHASE_BOOSE_LIKES' | translate }}</button>
+        </ion-col>
+        <ion-col col-12>
+            <button ion-button color="danger" outline style="width: 99%;" (click)="signOut()">{{ 'SETTINGS.SIGN_OUT' | translate }}</button>
+        </ion-col>
+    </ion-row>
+</ion-content>

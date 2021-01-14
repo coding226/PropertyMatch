@@ -1,0 +1,146 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title *ngIf="user_mode=='seeker'">{{ 'MESSAGES.SEEKER' | translate }}</ion-title>
+        <ion-title *ngIf="user_mode=='landlord'">{{ 'MESSAGES.LANDLORD' | translate }}</ion-title>
+        <ion-buttons end>
+            <button ion-button (click)="goToSettings()"><img src="assets/imgs/filter.png" /></button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content class="message-container">
+    <ion-searchbar padding></ion-searchbar>
+    <ion-row style="background: white;">
+        <ion-col col-12 class="border">
+            <div padding>
+                <ion-segment [(ngModel)]="user_mode">
+                    <ion-segment-button value="seeker">
+                        {{ 'MESSAGES.SEEKER' | translate }}
+                        <span *ngIf="newMessageSeeker" class="badge">{{newMessageSeeker}}</span>
+                    </ion-segment-button>
+                    <ion-segment-button value="landlord">
+                        {{ 'MESSAGES.LANDLORD' | translate }}
+                        <span *ngIf="newMessageLandlord" class="badge">{{newMessageLandlord}}</span>
+                    </ion-segment-button>
+                </ion-segment>
+            </div>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col col-12>
+            <div [ngSwitch]="user_mode">
+                <ion-list *ngSwitchCase="'seeker'">
+                    <ion-segment *ngIf="0" [(ngModel)]="seeker_matches" style="background: white;">
+                        <ion-segment-button value="new">
+                            {{ 'MESSAGES.NEW_MATCHES' | translate }}
+                        </ion-segment-button>
+                        <ion-segment-button value="shortlist">
+                            {{ 'MESSAGES.SHOTLISTED' | translate }}
+                        </ion-segment-button>
+                    </ion-segment>
+                    <div [ngSwitch]="seeker_matches">
+                        <ion-list *ngSwitchCase="'new'">
+                            <ion-item>
+                                <div class="outer-div" *ngIf="matched_requests_landlord.length > 0">
+                                    <div class="inner-div" *ngFor="let new of matched_requests_landlord">
+                                        <img src="{{api.IMAGE_URL}}{{new.property.images[0].image_path}}" (tap)="openChat(new)"/>
+                                        <p class="text-center">{{new.user.name}}</p>
+                                    </div>
+                                    <ion-label class="no-messages" *ngIf="matched_requests_landlord.length==0">
+                                        {{ 'MESSAGES.NO_MATCHES_FOUND' | translate }}
+                                    </ion-label>
+                                </div>
+                            </ion-item>
+
+                            <ion-item style="margin-top: 10px;">
+                                <ion-label class="msg">
+                                    {{ 'MESSAGES.TITLE_UPPERCASE' | translate }}
+                                    <span class="badge">{{seeker_message_list.length}}</span>
+                                </ion-label>
+                            </ion-item>
+                            <ion-item style="border-bottom: 1px solid #EFEFEF;" *ngFor="let list of seeker_message_list">
+                                <ion-avatar item-start (tap)="chat(list.property.id, list.thread_id, list.property.title)">
+                                    <img src="{{ list.property.images[0].image_path.length > 0 ? api.IMAGE_URL + list.property.images[0].image_path : api.IMAGE_URL + 'c7ef31b352a8108fbdf8648e397f7a24.jpg' }}" />
+                                    <span class="avatar-badge" *ngIf="!!newMessageSeekerObj[list.thread_id]">{{ newMessageSeekerObj[list.thread_id] }}</span>
+                                </ion-avatar>
+                                <h2 (tap)="chat(list.property.id, list.thread_id, list.property.title)" style="color: #4A4A4A;">
+                                    {{list.property.title}}&nbsp;&nbsp;({{list.receiver?.name}})
+                                </h2>
+                                <p (tap)="chat(list.property.id, list.thread_id, list.property.title)">
+                                {{list.message}}</p>
+                                <p style="color: red;">
+                                    <ion-icon (click)="deleteMessage(list)" name="trash"></ion-icon>
+                                </p>
+                            </ion-item>
+                            <ion-item *ngIf="seeker_message_list.length==0">
+                                <ion-label class="no-messages">
+                                    {{ 'MESSAGES.NO_MESSAGES_FOUND' | translate }}
+                                </ion-label>
+                            </ion-item>
+                        </ion-list>
+                        <ion-list *ngSwitchCase="'shortlist'">
+                            <ion-item>
+                                <h2>{{ 'MESSAGES.SHOTLISTED' | translate }}</h2>
+                            </ion-item>
+                        </ion-list>
+                    </div>
+                </ion-list>
+
+                <ion-list *ngSwitchCase="'landlord'">
+                    <ion-segment *ngIf="0" [(ngModel)]="landlord_matches" style="background: white;">
+                        <ion-segment-button value="new">
+                            {{ 'MESSAGES.NEW_MATCHES' | translate }}
+                            <span class="badge">{{new_matches_seeker.length}}</span>
+                        </ion-segment-button>
+                        <ion-segment-button value="shortlist">
+                            {{ 'MESSAGES.SHOTLISTED' | translate }}
+                            <span class="badge">0</span>
+                        </ion-segment-button>
+                    </ion-segment>
+                    <div [ngSwitch]="landlord_matches">
+                        <ion-list *ngSwitchCase="'new'">
+                            <ion-item>
+                                <div class="outer-div">
+                                    <div class="inner-div" *ngFor="let new of new_matches_seeker">
+                                        <img src="{{api.IMAGE_URL}}{{new.property.images[0].image_path}}" (tap)="openChat(new)"/>
+                                        <p class="text-center">{{new.property.title}}</p>
+                                    </div>
+                                    <ion-label class="no-messages" *ngIf="new_matches_seeker.length==0">
+                                        {{ 'MESSAGES.NO_MATCHES_FOUND' | translate }}
+                                    </ion-label>
+                                </div>
+                            </ion-item>
+                            <ion-item style="margin-top: 10px;">
+                                <ion-label class="msg">
+                                    {{ 'MESSAGES.TITLE_UPPERCASE' | translate }}
+                                    <span class="badge">{{landlord_message_list.length}}</span>
+                                </ion-label>
+                            </ion-item>
+                            <ng-container *ngFor="let list of landlord_message_list">
+                                <ion-item style="border-bottom: 1px solid #EFEFEF;">
+                                    <ion-avatar item-start (tap)="chat(list.property.id, list.thread_id, list.property.title)">
+                                        <img src="{{ list.property.images[0].image_path.length > 0 ? api.IMAGE_URL + list.property.images[0].image_path : api.IMAGE_URL + 'c7ef31b352a8108fbdf8648e397f7a24.jpg' }}" />
+                                        <span class="avatar-badge" *ngIf="!!newMessageLandlordObj[list.thread_id]">{{ newMessageLandlordObj[list.thread_id] }}</span>
+                                    </ion-avatar>
+                                    <h2 (tap)="chat(list.property.id, list.thread_id, list.property.title)" style="color: #4A4A4A;">
+                                        {{list.property.title}}&nbsp;&nbsp;({{ list.sender?.name }})
+                                    </h2>
+                                    <p (tap)="chat(list.property.id, list.thread_id, list.property.title)">
+                                    {{list.message}}</p>
+                                    <p style="color: red;">
+                                        <ion-icon (click)="deleteMessage(list)" name="trash"></ion-icon>
+                                    </p>
+                                </ion-item>
+                            </ng-container>
+
+                            <ion-item *ngIf="landlord_message_list.length==0">
+                                <ion-label class="no-messages">
+                                    {{ 'MESSAGES.NO_MESSAGES_FOUND' | translate }}
+                                </ion-label>
+                            </ion-item>
+                        </ion-list>
+                    </div>
+                </ion-list>
+            </div>
+        </ion-col>
+    </ion-row>
+</ion-content>

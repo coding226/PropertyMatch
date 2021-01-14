@@ -1,0 +1,350 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{ 'EDIT_PROPERTY.TITLE' | translate }}</ion-title>
+        <ion-buttons end>
+            <button ion-button (click)="goToSettings()">
+                <img src="assets/imgs/filter.png" />
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="add-new-property-container">
+    <ion-grid>
+        <ion-row>
+            <ion-col col-6>
+                <ion-label>{{ 'ADD_PROPERTY.TYPE' | translate }}</ion-label>
+            </ion-col>
+            <ion-col col-6>
+                <ion-select [(ngModel)]="landlord.property_type" interface="popover" (ionChange)="onPropertychange($event)" [ngClass]="{'error-highlight' : propertyTypeError && !landlord.property_type}">
+                   <ion-option [value]="type.id" *ngFor="let type of user.property_type_array">
+                       <ion-label *ngIf="currentLanguage === 'en'">
+                        {{ type.title }}
+                    </ion-label>
+                    <ion-label *ngIf="currentLanguage === 'th'">
+                        {{ type.title_th }}
+                    </ion-label>
+                </ion-option>
+            </ion-select>
+        </ion-col>
+    </ion-row>
+    <ion-label *ngIf="propertyTypeError && !landlord.property_type" class="error">
+        {{ 'ADD_PROPERTY.VALIDATE_TYPE' | translate }}
+    </ion-label>
+    <ion-row>
+        <ion-col col-6>
+            <ion-label class="text">{{ 'ADD_PROPERTY.ONE_WORD' | translate }}</ion-label>
+        </ion-col>
+        <ion-col col-6>
+            <ion-input class="new-input" type="text" [(ngModel)]="landlord.title" [ngClass]="{'error-highlight' : propertyTitleError && !landlord.title}"></ion-input>
+        </ion-col>
+    </ion-row>
+    <ion-label *ngIf="propertyTitleError && !landlord.title" class="error">
+        {{ 'ADD_PROPERTY.VALIDATE_ONE_WORD' | translate }}
+    </ion-label>
+    <ion-row>
+        <ion-col col-6>
+            <ion-label class="text">{{ 'ADD_PROPERTY.HOUSE_NAME' | translate }}</ion-label>
+        </ion-col>
+        <ion-col col-6>
+            <ion-input class="new-input" type="text" [(ngModel)]="landlord.house_name"></ion-input>
+        </ion-col>
+    </ion-row>
+    <ion-label *ngIf="houseNameError && !landlord.house_name" class="error">
+        {{ 'ADD_PROPERTY.VALIDATE_HOUSE_NAME' | translate }}
+    </ion-label>
+    <ion-row>
+        <ion-col col-6>
+            <ion-label class="text">
+            {{ 'ADD_PROPERTY.HOUSE_NO' | translate }</ion-label>
+        </ion-col>
+        <ion-col col-6>
+            <ion-input class="new-input" type="tel" [(ngModel)]="landlord.house_no"></ion-input>
+        </ion-col>
+    </ion-row>
+    <ion-label *ngIf="houseNoError && !landlord.house_no" class="error">{{ 'ADD_PROPERTY.VALIDATE_HOUSE_NO' | translate }}
+    </ion-label>
+    <ion-row>
+        <ion-col col-6>
+            <ion-label class="text">{{ 'ADD_PROPERTY.ADDRESS' | translate }}</ion-label>
+        </ion-col>
+        <ion-col col-6>
+            <ion-input class="new-input" type="text" [(ngModel)]="landlord.address"></ion-input>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col col-6>
+            <ion-label class="text">{{ 'ADD_PROPERTY.FLOOR' | translate }}</ion-label>
+        </ion-col>
+        <ion-col col-6>
+            <ion-input class="new-input" type="number" [(ngModel)]="landlord.floor"></ion-input>
+        </ion-col>
+    </ion-row>
+    <ion-label *ngIf="addressError && !landlord.address" class="error">
+        {{ 'ADD_PROPERTY.VALIDATE_ADDRESS' | translate }}
+    </ion-label>
+    <ion-row>
+        <ion-col col-6>
+            <ion-label class="text">{{ 'ADD_PROPERTY.NEAREST_LANDMARK' | translate }}</ion-label>
+        </ion-col>
+        <ion-col col-6>
+            <ion-input class="new-input" type="text" [(ngModel)]="landlord.nearest_point"></ion-input>
+        </ion-col>
+    </ion-row>
+    <ion-label *ngIf="nearestPointError && !landlord.nearest_point" class="error">
+        {{ 'ADD_PROPERTY.VALIDATE_NEAREST_LANDMARK' | translate }}
+    </ion-label>
+    <div *ngIf="landlord.property_type != 6">
+        <ion-row>
+            <ion-col col-6>
+                <ion-label class="text">{{ 'ADD_PROPERTY.BEDROOMS' | translate }}</ion-label>
+            </ion-col>
+            <ion-col col-6>
+                <ion-select [(ngModel)]="landlord.bedrooms" interface="popover">
+                    <ion-option value="0">{{ 'ADD_PROPERTY.STUDIO' | translate }}</ion-option>
+                    <ion-option value="1">1</ion-option>
+                    <ion-option value="2">2</ion-option>
+                    <ion-option value="3">3</ion-option>
+                    <ion-option value="4">4</ion-option>
+                    <ion-option value="5">5+</ion-option>
+                </ion-select>
+            </ion-col>
+        </ion-row>
+        <ion-label *ngIf="bedroomError && !landlord.bedrooms" class="error">* Bedrooms is required</ion-label>
+        <!-- ------------------------ -->
+            <!-- <ion-label *ngIf="studioError && !landlord.studios" class="error">* Studios is required</ion-label>
+    <ion-row>
+      <ion-col col-6>
+        <ion-label class="text">Studios</ion-label>
+      </ion-col>
+      <ion-col col-6>
+        <ion-select [(ngModel)]="landlord.studios" interface="popover">
+          <ion-option value="1">1</ion-option>
+          <ion-option value="2">2</ion-option>
+          <ion-option value="3">3</ion-option>
+          <ion-option value="4">4+</ion-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-label *ngIf="bedroomError && !landlord.bedrooms" class="error">* Bedrooms is required</ion-label> -->
+    <!-- ------------------------ -->
+    <ion-row>
+        <ion-col col-6>
+            <ion-label class="text">{{ 'ADD_PROPERTY.BATHROOMS' | translate }}</ion-label>
+        </ion-col>
+        <ion-col col-6>
+            <ion-select [(ngModel)]="landlord.bathrooms" interface="popover">
+                <ion-option value="1">1</ion-option>
+                <ion-option value="2">2</ion-option>
+                <ion-option value="3">3</ion-option>
+                <ion-option value="4">4</ion-option>
+                <ion-option value="5">5+</ion-option>
+            </ion-select>
+        </ion-col>
+    </ion-row>
+    <ion-label *ngIf="bathroomError && !landlord.bathrooms" class="error">
+        {{ 'ADD_PROPERTY.VALIDATE_BATHROOMS' | translate }}
+    </ion-label>
+</div>
+<ion-row *ngIf="landlord.property_type != 3 && landlord.property_type != 6">
+    <ion-col col-6>
+        <ion-label class="text"><span *ngIf="displayLand">{{ 'ADD_PROPERTY.LAND' | translate }}</span> {{ 'ADD_PROPERTY.SIZE' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6>
+        <ion-input class="new-input" type="tel" [(ngModel)]="landlord.size" [ngClass]="{'error-highlight' : sizeError && !landlord.size}"></ion-input>
+    </ion-col>
+</ion-row>
+<ion-row *ngIf="landlord.property_type == 6 || landlord.property_type == 3">
+    <ion-col col-6>
+        <ion-label class="text">{{ 'ADD_PROPERTY.LAND_SIZE_IN_WAH' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6>
+        <ion-input class="new-input" type="tel" [(ngModel)]="landlord.size" [ngClass]="{'error-highlight' : sizeError && !landlord.size}"></ion-input>
+    </ion-col>
+</ion-row>
+<ion-label *ngIf="sizeError && !landlord.size" class="error">
+    {{ 'ADD_PROPERTY.VALIDATE_LAND_SIZE' | translate }}
+</ion-label>
+<ion-row *ngIf="landlord.property_type == 3">
+    <ion-col col-6>
+        <ion-label class="text">{{ 'ADD_PROPERTY.LIVING_AREA' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6>
+        <ion-input [(ngModel)]="landlord.sqm" class="new-input" type="tel"></ion-input>
+    </ion-col>
+</ion-row>
+<ion-row>
+    <ion-col col-12>
+        <ion-label class="text">{{ 'ADD_PROPERTY.SHORT_DESC' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-12>
+        <ion-textarea type="text" class="description new-input" rows="3" maxLength="500" [(ngModel)]="landlord.description" [ngClass]="{'error-highlight' : descriptionError && !landlord.description}"></ion-textarea>
+    </ion-col>
+</ion-row>
+<ion-row>
+    <ion-col col-12 padding style="padding-bottom: 0px;">
+        <h2 class="title-location">{{ 'ADD_PROPERTY.LOCATION' | translate }}</h2>
+    </ion-col>
+            <!--  <ion-col col-12 class="border" padding>
+      <button class="location" ion-button icon-end full (click)="showMap()"> Current Location
+        &nbsp;<span style="color:#C1C0C9;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;"
+        *ngIf="landlord.city!='undefined'">{{landlord.city}}<span *ngIf="landlord.country!='undefined'"
+        style="color:#C1C0C9">,
+        {{landlord.country}}</span></span>
+       &nbsp; &nbsp; &nbsp; <img src="assets/imgs/locations.png" />
+      </button>
+
+  </ion-col> -->
+  <ion-col col-10 padding>
+    <google-places-autocomplete (callback)="choosePlace($event[0])" key="AIzaSyB6vIBAKwd750IR-Sh-ushM72hCiBwyZaw"></google-places-autocomplete>
+</ion-col>
+<ion-col col-2 class="border" padding>
+    <ion-icon style="font-size: 50px;" name="map" (click)="showMap()"></ion-icon>
+</ion-col>
+<ion-col col-12 padding>
+    <div [ngClass]="{largeHeight: show_map, smallHeight: !show_map}">
+        <div #mapEl id="mapDiv"></div>
+    </div>
+    <button ion-button block *ngIf="show_map" class="set-location" (click)="setLocation()">
+      {{ 'ADD_PROPERTY.SET_NEW_LOCATION' | translate }}
+  </button>
+</ion-col>
+</ion-row>
+<ion-label *ngIf="descriptionError && !landlord.description" class="error">
+    {{ 'ADD_PROPERTY.VALIDATE_SHORT_DESC' | translate }}
+</ion-label>
+<ion-row>
+    <ion-col col-6>
+        <ion-label>{{ 'ADD_PROPERTY.RENT_OR_SALE' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6>
+        <ion-select [(ngModel)]="landlord.search_type">
+            <ion-option value="1">{{ 'COMMON.SALE' | translate }}</ion-option>
+            <ion-option value="0">{{ 'COMMON.RENT' | translate }}</ion-option>
+            <ion-option value="2">{{ 'COMMON.BOTH' | translate }}</ion-option>
+        </ion-select>
+    </ion-col>
+</ion-row>
+<ion-row *ngIf="landlord.search_type">
+    <ion-col col-12>
+        <ion-label>{{ 'ADD_PROPERTY.HOW_MUCH' | translate }}</ion-label>
+    </ion-col>
+</ion-row>
+<ion-row *ngIf="landlord.search_type == 2 || landlord.search_type == 0">
+    <ion-col col-6>
+        <ion-label>{{ 'ADD_PROPERTY.RENT_PRICE' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6>
+        <ion-input class="new-input" type="tel" placeholder="" [(ngModel)]="landlord.rent_cost"></ion-input>
+    </ion-col>
+</ion-row>
+<ion-row *ngIf="landlord.search_type == 2 || landlord.search_type == 0">
+    <ion-col col-6>
+        <ion-label>{{ 'ADD_PROPERTY.RENT_DURATION' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6>
+        <ion-select [(ngModel)]="landlord.rent_duration">
+            <ion-option value="1 Day">1 {{ 'COMMON.DAY' | translate }}</ion-option>
+            <ion-option value="1 Week">1 {{ 'COMMON.WEEK' | translate }}</ion-option>
+            <ion-option value="1 Month">1 {{ 'COMMON.MONTH' | translate }}</ion-option>
+            <ion-option value="3 Month">3 {{ 'COMMON.MONTH' | translate }}</ion-option>
+            <ion-option value="6 Month">6 {{ 'COMMON.MONTH' | translate }}</ion-option>
+            <ion-option value="12 Month">12 {{ 'COMMON.MONTH' | translate }}</ion-option>
+        </ion-select>
+    </ion-col>
+</ion-row>
+<ion-row *ngIf="landlord.search_type == 2 || landlord.search_type == 1">
+    <ion-col col-6>
+        <ion-label>{{ 'ADD_PROPERTY.SELL_PRICE' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6>
+        <ion-input class="new-input" type="tel" placeholder="" [(ngModel)]="landlord.buy_cost"></ion-input>
+    </ion-col>
+</ion-row>
+</ion-grid>
+<ion-list>
+    <ion-item style="margin-left: -13px;">
+        <ion-label class="text">{{ 'ADD_PROPERTY.ATTRIBUTES' | translate }}</ion-label>
+    </ion-item>
+    <ion-item *ngFor="let attr of user.attribute; let i = index" class="attribute">
+        <ion-label *ngIf="currentLanguage === 'en'" style="font-size:12px">
+            {{ attr.title }}
+        </ion-label>
+        <ion-label *ngIf="currentLanguage === 'th'" style="font-size:12px">
+            {{ attr.title_th }}
+        </ion-label>
+        <ion-checkbox [checked]="attr.checked" color="dark" (click)="setAttribute(attr, i)">
+        </ion-checkbox>
+
+    </ion-item>
+</ion-list>
+<ion-row>
+    <ion-col col-6>
+        <ion-label class="text">{{ 'ADD_PROPERTY.MAIN_IMG' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6>
+        <button ion-button item-left round outline small float-right (click)="uploadPicture(1)" class="upload-button">
+            <ion-icon name="add"></ion-icon>&nbsp;&nbsp;{{ 'ADD_PROPERTY.ADD_PICTURE' | translate }}
+        </button>
+    </ion-col>
+    <ion-col col-12 *ngIf="main_pictures.length> 0">
+        <div class="selected-image-container" *ngFor="let pic of main_pictures; let i = index">
+            <button ion-button icon-only clear (click)="removeImage(i, 'main_pictures')" class="remove-button">
+              <ion-icon name="md-close-circle"></ion-icon>
+          </button>
+          <img src="{{api.IMAGE_URL}}{{pic.path}}" class="selected-image" *ngIf="pic.path" />
+      </div>
+  </ion-col>
+</ion-row>
+<ion-row>
+    <ion-col col-6>
+        <ion-label class="text">{{ 'ADD_PROPERTY.ADDITONAL_IMG' | translate }}</ion-label>
+    </ion-col>
+    <ion-col col-6>
+        <button ion-button item-left round outline small float-right (click)="uploadPicture(2)" class="upload-button">
+            <ion-icon name="add"></ion-icon>&nbsp;&nbsp;{{ 'ADD_PROPERTY.ADD_PICTURE' | translate }}
+        </button>
+    </ion-col>
+    <ion-col col-12 *ngIf="additional_pictures.length > 0">
+        <div class="selected-image-container" *ngFor="let pic of additional_pictures; let i = index">
+            <button ion-button icon-only (click)="removeImage(i, 'additional_pictures')" class="remove-button">
+              <ion-icon name="md-close-circle"></ion-icon>
+          </button>
+          <img src="{{api.IMAGE_URL}}{{pic.path}}" class="selected-image" *ngIf="pic.path" />
+      </div>
+  </ion-col>
+  <ion-col col-6>
+    <ion-label class="text">{{ 'ADD_PROPERTY.UTILITY_BILL' | translate }}</ion-label>
+</ion-col>
+<ion-col col-6>
+    <button ion-button item-left round outline small float-right (click)="uploadPicture(3)" class="upload-button">
+        <ion-icon name="add"></ion-icon>&nbsp;&nbsp;{{ 'ADD_PROPERTY.ADD_PICTURE' | translate }}
+    </button>
+</ion-col>
+<ion-label *ngIf="utilityBillError" class="error">
+    {{ 'ADD_PROPERTY.VALIDATE_UTILITY_BILL' | translate }}
+</ion-label>
+<ion-col col-12 *ngIf="utility_bill.length > 0">
+    <div class="selected-image-container" *ngFor="let pic of utility_bill; let i = index">
+        <button ion-button icon-only clear (click)="removeImage(i, 'utility_bill')" class="remove-button">
+          <ion-icon name="md-close-circle"></ion-icon>
+      </button>
+      <img src="{{api.IMAGE_URL}}{{pic.path}}" class="selected-image" *ngIf="pic.path" />
+  </div>
+  <div *ngIf="bill" style="width:100%"><img [src]="bill" /></div>
+</ion-col>
+<ion-col col-12 *ngIf="oldPics.length">
+    <div class="selected-image-container" *ngFor="let pic of oldPics; let i = index">
+        <button ion-button icon-only (click)="removeOldImage(pic)" class="remove-button">
+          <ion-icon name="md-close-circle"></ion-icon>
+      </button>
+      <img src="{{api.IMAGE_URL}}{{pic.image_path}}" class="selected-image" />
+  </div>
+</ion-col>
+</ion-row>
+<ion-row>
+    <ion-col>
+        <button ion-button block (click)="addNewProperty()">{{ 'COMMON.SAVE' | translate }}</button>
+    </ion-col>
+</ion-row>
+</ion-content>

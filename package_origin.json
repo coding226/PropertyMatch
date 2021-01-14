@@ -1,0 +1,114 @@
+{
+  "name": "propertymatch",
+  "version": "0.0.1",
+  "author": "Ionic Framework",
+  "homepage": "http://ionicframework.com/",
+  "private": true,
+  "scripts": {
+    "clean": "ionic-app-scripts clean",
+    "build": "ionic-app-scripts build",
+    "lint": "ionic-app-scripts lint",
+    "ionic:build": "ionic-app-scripts build",
+    "ionic:serve": "ionic-app-scripts serve"
+  },
+  "dependencies": {
+    "@angular/common": "5.0.0",
+    "@angular/compiler": "5.0.0",
+    "@angular/compiler-cli": "5.0.0",
+    "@angular/core": "5.0.0",
+    "@angular/forms": "5.0.0",
+    "@angular/http": "5.0.0",
+    "@angular/platform-browser": "5.0.0",
+    "@angular/platform-browser-dynamic": "5.0.0",
+    "@ionic-native/background-mode": "^4.10.0",
+    "@ionic-native/camera": "^4.9.0",
+    "@ionic-native/core": "^4.12.2",
+    "@ionic-native/crop": "^4.9.0",
+    "@ionic-native/facebook": "^4.9.0",
+    "@ionic-native/fcm": "^4.10.0",
+    "@ionic-native/file-transfer": "^4.9.0",
+    "@ionic-native/geolocation": "^4.9.0",
+    "@ionic-native/google-maps": "^4.12.0",
+    "@ionic-native/google-plus": "^4.9.0",
+    "@ionic-native/image-picker": "^4.18.0",
+    "@ionic-native/in-app-purchase": "^4.11.0",
+    "@ionic-native/keyboard": "^4.20.0",
+    "@ionic-native/local-notifications": "^4.10.0",
+    "@ionic-native/native-storage": "^4.20.0",
+    "@ionic-native/splash-screen": "4.3.2",
+    "@ionic-native/status-bar": "4.3.2",
+    "@ionic/storage": "2.1.3",
+    "angular2-swing": "^0.14.0",
+    "cordova-android": "7.1.4",
+    "cordova-browser": "^5.0.4",
+    "cordova-ios": "4.5.5",
+    "cordova-plugin-badge": "^0.8.7",
+    "cordova-plugin-camera": "^4.0.3",
+    "cordova-plugin-crop": "^0.4.0",
+    "cordova-plugin-crosswalk-webview": "^2.4.0",
+    "cordova-plugin-device": "^1.1.4",
+    "cordova-plugin-facebook4": "^2.2.0",
+    "cordova-plugin-fcm-with-dependecy-updated": "^2.2.4",
+    "cordova-plugin-file": "^6.0.1",
+    "cordova-plugin-file-transfer": "^1.7.1",
+    "cordova-plugin-geolocation": "^4.0.1",
+    "cordova-plugin-googlemaps": "^2.4.2",
+    "cordova-plugin-googleplus": "5.3.2",
+    "cordova-plugin-inapppurchase": "^1.2.0",
+    "cordova-plugin-ionic-keyboard": "2.1.3",
+    "cordova-plugin-local-notification": "^0.9.0-beta.2",
+    "cordova-plugin-nativestorage": "^2.3.1",
+    "cordova-plugin-splashscreen": "^4.0.3",
+    "cordova-plugin-telerik-imagepicker": "^2.2.2",
+    "cordova-plugin-whitelist": "^1.3.3",
+    "intl": "^1.2.5",
+    "ionic": "5.0.2",
+    "ionic-angular": "3.9.2",
+    "ionic-img-viewer": "^2.9.0",
+    "ionic2-calendar": "^0.4.4",
+    "ionic2-google-places-autocomplete": "^1.0.2",
+    "ionicons": "3.0.0",
+    "rxjs": "5.5.2",
+    "sw-toolbox": "3.6.0",
+    "zone.js": "0.8.18"
+  },
+  "devDependencies": {
+    "@ionic/app-scripts": "^3.2.1",
+    "typescript": "2.4.2"
+  },
+  "description": "An Ionic project",
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-facebook4": {
+        "APP_ID": "158781841531870",
+        "APP_NAME": "Property Match",
+        "ANDROID_SDK_VERSION": "4.+"
+      },
+      "cordova-plugin-nativestorage": {},
+      "cordova-plugin-camera": {},
+      "cordova-plugin-crop": {},
+      "cordova-plugin-file-transfer": {},
+      "cordova-plugin-geolocation": {
+        "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
+      },
+      "cordova-plugin-fcm-with-dependecy-updated": {},
+      "cordova-plugin-local-notification": {},
+      "cordova-plugin-inapppurchase": {},
+      "cordova-plugin-telerik-imagepicker": {
+        "PHOTO_LIBRARY_USAGE_DESCRIPTION": "photo usage"
+      },
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "174552102740-d48hrurrnjku37n7dt6er1n99tkaobhb.apps.googleusercontent.com",
+        "PLAY_SERVICES_VERSION": "11.8.0"
+      },
+      "cordova-plugin-ionic-keyboard": {}
+    },
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  }
+}

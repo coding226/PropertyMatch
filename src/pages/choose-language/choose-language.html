@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{ 'CHOOSE_LANGUAGE.TITLE' | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="add-language-container">
+    <div class="container-language">
+        <div class="w-100">
+            <ion-row class="row-btn">
+                <button ion-button block (click)="chooseLanguage('en')">
+                    {{ 'CHOOSE_LANGUAGE.EN' | translate }}
+                </button>
+            </ion-row>
+            <ion-row class="row-btn">
+                <button ion-button block (click)="chooseLanguage('th')">
+                    {{ 'CHOOSE_LANGUAGE.TH' | translate }}
+                </button>
+            </ion-row>
+            <ion-row *ngIf="0" class="row-btn center">
+                <button ion-button color="secondary" (click)="enter()">
+                    {{ 'CHOOSE_LANGUAGE.CONTINUE' | translate }}
+                </button>
+            </ion-row>
+        </div>
+    </div>
+</ion-content>

@@ -1,0 +1,67 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{ 'PERSONAL.TITLE' | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding class="personal-container">
+    <ion-grid>
+        <ion-row style="margin-top: -32px;">
+            <ion-col col-12 class="home">
+                <!-- <img src="assets/imgs/blue-home.png" /> -->
+                <img [src]="getProfile()" class="profile-pic" />
+            </ion-col>
+        </ion-row>
+        <ion-row style="margin-top: -32px;">
+            <ion-col col-12 class="middle-sec">
+
+                <ion-list>
+                    <ion-item style="background:#F7F7F7">
+                        <ion-label class="color">
+                            <ion-icon name="ios-person"></ion-icon>
+                        </ion-label>
+                        <ion-input clearInput type="text" [placeholder]="'PERSONAL.PLACEHOLDER_NAME' | translate" [(ngModel)]="name"></ion-input>
+                    </ion-item>
+                </ion-list>
+                <ion-list>
+                    <ion-item style="background:#F7F7F7">
+                        <ion-label class="color">
+                            <ion-icon name="mail"></ion-icon>
+                        </ion-label>
+
+                        <ion-input clearInput type="text" [placeholder]="'PERSONAL.PLACEHOLDER_EMAIL' | translate" [(ngModel)]="email">
+                        </ion-input>
+                    </ion-item>
+                </ion-list>
+                <ion-list *ngIf="user.email_verified!=1">
+                    <ion-item style=" font-size: 8px; border: 0; text-align: center;">
+                        <ion-label class="color" style="margin-top: -21px;">
+                            {{ 'PERSONAL.EMAIL_NOT_VERIFIED' | translate }}
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+                <ion-list>
+                    <ion-item style="background:#F7F7F7;">
+                        <ion-label class="color">
+                            <ion-icon name="md-calendar" style="font-size: 12px;">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ 'PERSONAL.DATE_OF_BIRTH' | translate }}
+                            </ion-icon>
+                        </ion-label>
+                        <ion-datetime displayFormat="YYYY-MM-DD" pickerFormat="YYYY-MM-DD" [(ngModel)]="date_of_birth">
+                        </ion-datetime>
+                    </ion-item>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-12>
+                <button ion-button outline style="width: 99%;" (tap)="resendVerification()"> 
+                    {{ 'PERSONAL.RESEND_VERIFICATION' | translate }}
+                </button>
+            </ion-col>
+            <ion-col col-12 style="text-align: center;">
+                <button ion-button class="save-btn" (click)="editInfo()"> {{ 'COMMON.SAVE' | translate }} </button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

@@ -1,0 +1,66 @@
+<ion-content class="login-container">
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12 class="home">
+                <img src="assets/imgs/home.png" />
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-12 class="middle-sec">
+                <form [formGroup]="loginForm">
+                    <ion-list>
+                        <ion-item style="border-radius: 5px;">
+                            <ion-label class="color">
+                                <ion-icon name="mail"></ion-icon>
+                            </ion-label>
+                            <ion-input clearInput type="text" placeholder="Email" formControlName="email"></ion-input>
+                        </ion-item>
+                        <div style="color: red; padding-top: 0.2rem; text-align: left;" *ngIf="!loginForm.controls.email.valid && (loginForm.controls.email.dirty || loginForm.controls.email.touched)" class="validator-error">
+                            Email must be valid!
+                        </div>
+                    </ion-list>
+                    <ion-list>
+                        <ion-item style="border-radius: 5px;">
+                            <ion-label class="color">
+                                <ion-icon name="md-lock"></ion-icon>
+                            </ion-label>
+                            <ion-input clearInput type="{{ passwordType }}" class="password_field" placeholder="Password" formControlName="password"></ion-input>
+                            <ion-icon item-end [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+                            <div style="color: red; padding-top: 0.2rem; text-align: left;" *ngIf="!loginForm.controls.password.valid && (loginForm.controls.password.dirty || loginForm.controls.password.touched)" class="validator-error">
+                                Password must be valid!
+                            </div>
+                        </ion-item>
+                    </ion-list>
+                </form>
+            </ion-col>
+        </ion-row>
+
+        <ion-row class="btns">
+            <ion-col col-12>
+                <button ion-button class="login" (tap)="doLogin()"> {{ 'LOGIN.TITLE' | translate }} </button>
+            </ion-col>
+            <ion-col col-12 class="label">
+                <ion-label (click)="goToForgetPassword()">{{ 'LOGIN.FORGOT' | translate }} </ion-label>
+            </ion-col>
+
+            <ion-col col-12>
+                <button ion-button item-left class="facebook-btn" (click)="doFacebookLogin()">
+                    <ion-icon name="logo-facebook"></ion-icon> &nbsp;&nbsp; {{ 'LOGIN.WITH_FACEBOOK' | translate }}
+                    {{ facebookName }}
+                </button>
+            </ion-col>
+            <!-- <ion-col col-12>
+                <button ion-button item-left class="google-btn" (click)="doGoogleLogin()"><img
+                        src="assets/imgs/google.png" /> &nbsp;&nbsp;Login with Google</button>
+            </ion-col> -->
+
+        </ion-row>
+        <ion-row class="btns2">
+            <ion-col col-12>
+                <ion-label (tap)="signup()" style="font-weight: bold;">{{ 'LOGIN.DONT_HAVE_ACCOUNT' | translate }}
+                    <a style="color: white; font-weight: bold;">{{ 'LOGIN.SIGNUP' | translate }}</a>
+                </ion-label>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

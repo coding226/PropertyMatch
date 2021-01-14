@@ -1,0 +1,84 @@
+page-login {
+    .login-container {
+        background-image: url("../assets/imgs/background-login.png");
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        .home {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .middle-sec {
+            text-align: center;
+            margin-top: 40px;
+            .icon {
+                color: #C8C8C8;
+            }
+        }
+        .btns {
+            text-align: center;
+            // margin-top: 30px;
+            .facebook-btn {
+                background: #2672CB;
+                width: 65%;
+            }
+            .google-btn {
+                background: white;
+                color: #4A4A4A;
+                width: 65%;
+            }
+            .email {
+                width: 80%;
+            }
+            .label {
+                color: white;
+            }
+            .login {
+                background: white;
+                color: #4A4A4A;
+                width: 80%;
+            }
+        }
+        .btns2 {
+            text-align: center;
+            margin-top: 10px;
+            .label {
+                color: white;
+            }
+            a {
+                color: #4A4A4A;
+                text-decoration: underline;
+            }
+        }
+    }
+    .list-ios {
+        margin: -1px 0 8px;
+    }
+    .input-ios[clearInput] {
+        position: relative;
+        padding: 5px;
+    }
+    .input-ios[clearInput] .text-input {
+        padding-right: 30px;
+        font-size: 12px;
+    }
+    .scroll-content {
+        /* left: 0; */
+        right: 0;
+        top: 0;
+        bottom: 0;
+        position: absolute;
+        z-index: 1;
+        display: block;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        contain: size style layout;
+    }
+    .passwordIcon {
+       font-size:2.3rem !important;
+       position: relative !important;
+       top: 3px !important;
+       margin: 0 auto !important;
+    }
+}

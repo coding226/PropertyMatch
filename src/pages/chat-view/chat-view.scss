@@ -1,0 +1,149 @@
+page-chat-view {
+    .chat-container {
+        .col-back {
+            background: #F6F6F6;
+            text-align: center;
+            padding: 10px;
+            border-right: 1px solid #EEEEEE;
+            font-size: 20px;
+        }
+        .date-time {
+            text-align: center;
+            color: #DDDDDD;
+        }
+        .sender::before {
+            content: '';
+            position: absolute;
+            display: block;
+            top: 35px;
+            bottom: -7.5px;
+            right: 5px;
+            height: 11px;
+            border: 20px solid transparent;
+            border-top-color: #4B84D9;
+            border-bottom: 0;
+            border-right: 0;
+            margin-top: 5px;
+        }
+        .sender ion-label {
+            float: right;
+            background: #4B84D9;
+            color: white;
+            padding: 10px;
+            border-radius: 10px 10px 0px 10px;
+            margin-top: 10px;
+            .msg-icon {
+                font-weight: bold;
+                padding-left: 5px;
+                margin-right: 5px;
+            }
+        }
+        .receiver::before {
+            content: '';
+            position: absolute;
+            top: 35px;
+            bottom: 0;
+            width: 0;
+            height: 11px;
+            border: 20px solid transparent;
+            border-top-color: #EFEFEF;
+            border-bottom: 0;
+            border-left: 0;
+        }
+        .receiver ion-label {
+            float: left;
+            background: #EFEFEF;
+            color: #4A4A4A;
+            padding: 10px;
+            border-radius: 10px 10px 10px 0px;
+            .msg-icon {
+                font-weight: bold;
+                padding: 5px;
+            }
+        }
+    }
+    .footer-container {
+        .camera {
+            text-align: center;
+            color: #BCBCBE;
+            padding-top: 13px;
+            font-size: 20px;
+        }
+        .send {
+            text-align: center;
+            padding-top: 15px;
+            color: #4B84D9;
+            font-size: 20px;
+        }
+        .text-field {
+            border: 1px solid #DCDCE4;
+            background: white;
+            border-radius: 10px;
+        }
+    }
+    .label-ios {
+        margin: 0;
+    }
+    ion-footer {
+        left: 0;
+        bottom: 0;
+        position: absolute;
+        z-index: 10;
+        display: block;
+        width: 100%;
+        background: #FAFAFA;
+        border-top: 1px solid #DCDCE4;
+    }
+    .text-input-ios {
+        margin: 11px 8px 11px 0;
+        padding: 0px;
+        padding-left: 0px;
+        width: calc(100% - 8px);
+        padding-left: 14px;
+    }
+    ion-label {
+        margin: 0;
+        display: block;
+        overflow: hidden;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        font-size: inherit;
+        text-overflow: ellipsis;
+        white-space: normal;
+    }
+
+
+    .invite-open-detail{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        img{
+            height: 18px;
+            width: auto;
+        }
+    }
+
+    .chat-message{
+        width: 70%;
+        height: auto;
+    }
+
+    .confirm-invitation{
+        color: #2CC950;
+        margin-right: 5px;
+    }
+    .confirm-color{
+        color: #2CC950;
+    }
+
+    .decline-color{
+        color: #FF0000;
+    }
+
+    .change-color{
+        color: #484848;
+    }
+}

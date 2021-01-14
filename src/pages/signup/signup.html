@@ -1,0 +1,91 @@
+<ion-content padding class="signup-container">
+    <ion-grid>
+        <ion-row>
+            <ion-col col-12 class="home">
+                <img src="assets/imgs/blue-home.png" />
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-12 class="middle-sec">
+                <form [formGroup]="signupForm">
+                    <ion-list>
+                        <ion-item style="background:#F7F7F7">
+                            <ion-label class="color">
+                                <ion-icon name="ios-person"></ion-icon>
+                            </ion-label>
+                            <ion-input clearInput type="text" [placeholder]="'SIGN_UP.NAME' | translate" formControlName="username"></ion-input>
+                        </ion-item>
+                    </ion-list>
+                    <!-- <ion-list>
+                        <ion-item style="background:#F7F7F7">
+                            <ion-label class="color">
+                                <ion-icon name="md-female"></ion-icon>
+                                <span class="coun">{{ 'SIGN_UP.GENDER' | translate}}</span>
+                            </ion-label>
+                            <ion-select formControlName="gender">
+                                <ion-option value="male">{{ 'COMMON.MALE' | translate}}</ion-option>
+                                <ion-option value="female">{{ 'COMMON.FEMALE' | translate}}</ion-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-list> -->
+                    <ion-list>
+                        <ion-item style="background:#F7F7F7">
+                            <ion-label class="color">
+                                <ion-icon name="mail"></ion-icon>
+                            </ion-label>
+                            <ion-input clearInput type="email" [placeholder]="'SIGN_UP.EMAIL' | translate" formControlName="email"></ion-input>
+                        </ion-item>
+                    </ion-list>
+                    <ion-list>
+                        <ion-item style="background:#F7F7F7">
+                            <ion-label class="color">
+                                <ion-icon name="md-lock"></ion-icon>
+                            </ion-label>
+                            <ion-input clearInput type="{{ passwordType }}" [placeholder]="'SIGN_UP.PASSWORD' | translate" formControlName="password">
+                            </ion-input>
+                            <ion-icon item-end [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
+                        </ion-item>
+                    </ion-list>
+                    <ion-list>
+                        <ion-item style="background:#F7F7F7">
+                            <ion-label class="color">
+                                <ion-icon name="flag"></ion-icon>
+                                <span class="coun">{{ 'SIGN_UP.COUNTRY' | translate }}</span>
+                            </ion-label>
+                            <ion-select [(ngModel)]="code" multiple="false" formControlName="code" class="countyrcode">
+                                <ion-option *ngFor="let c of callingcodes;">{{c.dial_code}}, {{c.name}} </ion-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-list>
+
+                    <ion-list>
+                        <ion-item style="background:#F7F7F7">
+                            <ion-label class="color">
+                                <ion-icon name="call"></ion-icon>
+                            </ion-label>
+                            <ion-input clearInput type="tel" [placeholder]="'SIGN_UP.MOBILE_NUMBER' | translate" formControlName="mobile_no" (keydown)="checkMobileNumber()" (ionBlur)="checkMobileNumber()"></ion-input>
+                        </ion-item>
+                        <ion-label class="msg">{{ 'SIGN_UP.MOBILE_NUMBER_DESC' | translate }}</ion-label>
+                    </ion-list>
+                </form>
+            </ion-col>
+        </ion-row>
+        <ion-row class="btns">
+            <ion-col col-12>
+                <button ion-button class="signup" (tap)="doSignUp()" [disabled]="!signupForm.valid">
+                    {{ 'SIGN_UP.ACCEPT_CONTINUE' | translate }}
+                </button>
+            </ion-col>
+            <ion-col col-12 class="label">
+                <ion-label>
+                    {{ 'SIGN_UP.ACCEPT_CONTINUE_DESC' | translate }}
+                </ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row class="btns2">
+            <ion-col col-12>
+                <ion-label (tap)="login()">{{ 'SIGN_UP.ALREADY_ACCOUNT' | translate }}</ion-label>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

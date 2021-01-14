@@ -1,0 +1,102 @@
+<ion-content class="property-detail-container">
+    <button ion-button round class="close-btn" (click)="close()">
+        <ion-icon name="md-close"></ion-icon>
+    </button>
+    <ion-slides pager direction="vertical" class="slider-container" *ngIf="!from">
+        <ion-slide *ngFor="let pic of main_images">
+            <ion-row>
+                <!-- <ion-col col-12 class="slide-container" [style.background]="'url(' + 'http://103.43.152.211/property-match' + pic.image_path + ')'"></ion-col> -->
+                <ion-col col-12 class="slide-container">
+                    <img (load)="setCenter($event)" [src]="imageUrl + pic.image_path">
+                </ion-col>
+            </ion-row>
+        </ion-slide>
+    </ion-slides>
+
+    <ion-slides pager direction="vertical" class="slider-container" *ngIf="from == 'CHAT_PAGE'">
+        <ion-slide *ngFor="let pic of detail.images">
+            <ion-row>
+                <!-- <ion-col col-12 class="slide-container" [style.background]="'url(' + 'http://103.43.152.211/property-match' + pic.image_path + ')'"></ion-col> -->
+                <ion-col col-12 class="slide-container">
+                    <img (load)="setCenter($event)" [src]="imageUrl + pic.image_path">
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-3 style="margin-left:-5px;">
+                    <button ion-button round class="close-btn" (click)="close()">
+                        <ion-icon name="md-close"></ion-icon>
+                    </button>
+                </ion-col>
+            </ion-row>
+        </ion-slide>
+    </ion-slides>
+    <ion-list>
+        <ion-item style="border-bottom: 0.55px solid #c8c7cc;">
+            <h2>{{detail.title}} {{detail.bedroom}}&nbsp;{{ 'PROPERTY_DETAIL.BEDROOM' | translate }}&nbsp;{{getPropertyString(detail.property_type)}}</h2>
+            <p>{{detail.address}}</p>
+            <p *ngIf="detail.floor">{{ 'PROPERTY_DETAIL.FLOOR' | translate }}&nbsp;{{detail.floor}}</p>
+            <p>{{getPropertyFor(detail.property_for)}}</p>
+            <p>{{ printPrice(detail) }}&nbsp;{{ 'COMMON.THB' | translate }}</p>
+        </ion-item>
+        <ion-item style="border-bottom: 0.55px solid #c8c7cc;">
+            <h2>{{ 'PROPERTY_DETAIL.ABOUT' | translate }}</h2>
+            <p>{{detail.description}}</p>
+        </ion-item>
+        <ion-item style="border-bottom: 0.55px solid #c8c7cc;">
+            <h2>{{ 'PROPERTY_DETAIL.FEATURES_ATTRIBUTES' | translate }}</h2>
+        </ion-item>
+        <ion-item *ngFor="let attr of attributes;" style="width:50%;float:left">
+            <ion-label *ngIf="currentLanguage === 'en'" style="font-size:12px">
+                {{ attr.title }}
+            </ion-label>
+            <ion-label *ngIf="currentLanguage === 'th'" style="font-size:12px">
+                {{ attr.title_th }}
+            </ion-label>
+            <ion-checkbox color="dark" checked="true" disabled="true"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+            <h2>{{ 'PROPERTY_DETAIL.ADDITIONAL_IMG' | translate }}</h2>
+        </ion-item>
+        <ion-row style="border-bottom: 0.55px solid #c8c7cc;">
+            <!-- <h2>Additional Images</h2> -->
+            <ion-col col-4 *ngFor="let pic of additional_images">
+                <img src="{{api.IMAGE_URL}}{{pic.image_path}}" imageViewer #myImage (click)="presentImage(myImage, $event)" />
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col col-4 class="align-center">
+                <button ion-button round style="padding: 37px 2.6rem;" (click)="makeRequest(null)">
+                    <ion-icon name="md-close" class="cancel-icon"></ion-icon>
+                </button>
+            </ion-col>
+            <ion-col col-4 class="align-center">
+                <button ion-button round style="padding: 37px 2.6rem;" (click)="makeRequest(100)" *ngIf="!likedProperty">
+                    <ion-icon name="md-thumbs-up" class="like-icon"></ion-icon>
+                </button>
+                <button ion-button round style="padding: 37px 2.6rem;" (click)="deleteRequest(likedPropertyRequestId)" *ngIf="likedProperty">
+                    <ion-icon name="md-thumbs-down" class="cancel-icon"></ion-icon>
+                </button>
+            </ion-col>
+            <!-- <ion-col col-4 class="align-center">
+                <button ion-button round style="padding: 37px 2.6rem;">
+                    <ion-icon name="md-star" class="star-icon"></ion-icon>
+                </button>
+            </ion-col> -->
+            <ion-col col-4 class="align-center">
+                <button ion-button round style="padding: 37px 2.6rem;" (click)="openChat()">
+                    <ion-icon name="md-chatboxes" class="like-icon"></ion-icon>
+                </button>
+            </ion-col>
+            <ion-col col-4 class="align-center">
+                <button ion-button round style="padding: 37px 2.6rem;" (click)="shareProperty(detail)">
+                    <ion-icon name="md-share" class="like-icon"></ion-icon>
+                </button>
+            </ion-col>
+            <ion-col col-12 class="align-center">
+                <button ion-button round style="padding: 37px 2.6rem; color: black" (click)="showConfirm(detail.id)">
+                    {{ 'PROPERTY_DETAIL.REPORT_PROPERTY' | translate }}
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-list>
+</ion-content>

@@ -1,0 +1,224 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { NativeStorage } from '@ionic-native/native-storage';
+// import { GooglePlus } from '@ionic-native/google-plus';
+import { Geolocation } from '@ionic-native/geolocation';
+import { UserProvider } from './../../providers/user/user';
+import { AlertProvider } from './../../providers/alert/alert';
+import { LoaderProvider } from './../../providers/loader/loader';
+import { FCM } from '@ionic-native/fcm';
+import { TabsPage } from '../../pages/tabs/tabs';
+import { TranslateService } from '@ngx-translate/core';
+declare var google;
+
+@IonicPage()
+@Component({
+	selector: 'page-getstarted',
+	templateUrl: 'getstarted.html',
+})
+export class GetstartedPage {
+	deviceToken: any;
+	constructor(
+		public navCtrl: NavController,
+		public navParams: NavParams,
+		private nativeStorage: NativeStorage,
+		public geolocation: Geolocation,
+		private fb: Facebook,
+		// private googlePlus: GooglePlus,
+		public user: UserProvider,
+		public alert: AlertProvider,
+		public loader: LoaderProvider,
+		translate: TranslateService
+		) {
+			translate.setDefaultLang(localStorage.language);
+	}
+
+	ionViewWillEnter() { this.user.hideTabs = true; }
+	/** go to login page */
+	login() {
+		this.navCtrl.setRoot("LoginPage");
+	}
+
+	/** got tosignup */
+	signup() {
+		this.navCtrl.setRoot("SignupPage");
+	}
+	/** facebook login */
+	doFacebookLogin() {
+		var env = this;
+		this.fb.login(['public_profile', 'email'])
+			.then((res: FacebookLoginResponse) => {
+				console.log('Logged into Facebook!', res);
+				env
+					.fb
+					.api("/me?fields=first_name,last_name,gender,email", [])
+					.then(function (user) {
+						console.log("user info ", user);
+						env.loader.presentLoading()
+						let params = {
+							name: user.first_name + ' ' + user.last_name,
+							email: user.id,
+							// "device_token":this.user.device_id,
+							device_token: env.deviceToken,
+							"device_type": "android"
+						}
+						env.user.callApi(params, 'social_login').subscribe(data => {
+							console.log(data);
+							env.loader.dimissLoading();
+							if (data.status != 0) {
+								localStorage.setItem('user_id', data.data.id+'');
+								env.nativeStorage.setItem('user_data', { data: data.data })
+									.then(
+										() => console.log('Stored item!'),
+										error => console.error('Error storing item', error)
+									);
+								env.user.user_id = data.data.id;
+								env.user.name = data.data.name;
+								env.user.short_description = data.data.description;
+								env.user.status = data.data.status;
+								env.user.gender = data.data.gender;
+								env.user.occupation = data.data.occupation;
+								env.user.age = data.data.age;
+								env.user.profile_image = data.data.profile_image;
+								if (data.data.city != null) {
+									env.user.city = data.data.city;
+								}
+								if (data.data.region != null) {
+									env.user.state = data.data.region;
+								}
+								if (data.data.country != null) {
+									env.user.country = data.data.country;
+								}
+								if (data.data.lat != null && data.data.lon != null) {
+									env.user.latitude = data.data.lat;
+									env.user.longitude = data.data.lon;
+								} else {
+									env.getCurrentPosition();
+								}
+								env.alert.showAlert('Message', data.message);
+								env.navCtrl.setRoot(TabsPage);
+								if (data.data.is_verified == 0) {
+									// env.loader.dimissLoading();
+									env.navCtrl.setRoot("PhonenumberPage", { id: data.data.id });
+								} else {
+									// this.navCtrl.setRoot(Ta)
+								}
+
+							} else {
+								env.alert.showAlert('Message', data.message);
+								env.navCtrl.setRoot("PhonenumberPage", { id: data.data.id });
+
+							}
+						}, err => {
+							env.loader.dimissLoading();
+							console.log(err);
+						})
+					})
+			})
+			.catch(e => console.log('Error logging into Facebook', e));
+	}
+
+	/** do google login */
+	doGoogleLogin() {
+		// var env = this;
+		// this.googlePlus.login({
+		// 	webClientId: "174552102740-loqljpiq2snr9g3bs0b05at198qi2i8o.apps.googleusercontent.com",
+		// 	scopes: 'https://www.googleapis.com/auth/plus.login'
+		// })
+		// 	.then(res => {
+		// 		this.loader.presentLoading()
+		// 		let params = {
+		// 			name: res.displayName,
+		// 			email: res.userId,
+		// 			device_token: env.deviceToken,
+		// 			//  "device_token":this.user.device_id,
+		// 			"device_type": "android"
+		// 		}
+		// 		env.user.callApi(params, 'social_login').subscribe(data => {
+		// 			console.log(data);
+		// 			this.loader.dimissLoading();
+		// 			if (data.status != 0) {
+		// 				env.nativeStorage.setItem('user_data', { data: data.data })
+		// 					.then(
+		// 						() => console.log('Stored item!'),
+		// 						error => console.error('Error storing item', error)
+		// 					);
+		// 				env.user.user_id = data.data.id;
+		// 				env.user.name = data.data.name;
+		// 				env.user.short_description = data.data.description;
+		// 				env.user.status = data.data.status;
+		// 				env.user.gender = data.data.gender;
+		// 				env.user.occupation = data.data.occupation;
+		// 				env.user.age = data.data.age;
+		// 				env.user.profile_image = data.data.profile_image;
+		// 				if (data.data.city != null) {
+		// 					env.user.city = data.data.city;
+		// 				}
+		// 				if (data.data.region != null) {
+		// 					env.user.state = data.data.region;
+		// 				}
+		// 				if (data.data.country != null) {
+		// 					env.user.country = data.data.country;
+		// 				}
+		// 				if (data.data.lat != null && data.data.lon != null) {
+		// 					env.user.latitude = data.data.lat;
+		// 					env.user.longitude = data.data.lon;
+		// 				} else {
+		// 					env.getCurrentPosition();
+		// 				}
+		// 				env.alert.showAlert('Message', data.message);
+		// 				env.navCtrl.setRoot(TabsPage);
+		// 				if (data.data.is_verified == 0) {
+		// 					this.navCtrl.setRoot("PhonenumberPage", { id: data.data.id });
+		// 				} else {
+		// 					// this.navCtrl.setRoot(Ta)
+		// 				}
+
+		// 			} else {
+		// 				// this.alert.showAlert('Message', data.message);
+		// 				this.navCtrl.setRoot("PhonenumberPage", { id: data.data.id });
+
+		// 			}
+		// 		}, err => {
+		// 			this.loader.dimissLoading();
+		// 			console.log(err);
+		// 		})
+
+		// 	})
+		// 	.catch(err => console.error(err));
+	}
+
+	/** get current position */
+	getCurrentPosition() {
+		var env = this;
+		this.geolocation.getCurrentPosition().then((resp) => {
+			console.log("getCurrentPosition", resp);
+			this.user.latitude = resp.coords.latitude;
+			this.user.longitude = resp.coords.longitude;
+
+			var lat = this.user.latitude;
+			var lng = this.user.longitude;
+			var latlng = new google.maps.LatLng(lat, lng);
+			var geocoder = geocoder = new google.maps.Geocoder();
+			geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					let a = results[1].address_components;
+					console.log(a);
+					env.user.city = a[1].short_name;
+					env.user.state = a[2].long_name;
+					env.user.country = a[3].long_name;
+					if (results[1]) {
+						console.log(results[1]);
+						console.log("Location: " + results[1].formatted_address);
+					}
+					// env.setRootPage();
+				}
+				//env.setRootPage();
+			});
+			//  this.setRootPage();
+		}).catch((error) => {
+			console.log('Error getting location', error);
+		});
+	}
+}

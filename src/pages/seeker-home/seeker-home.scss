@@ -1,0 +1,235 @@
+page-seeker-home {
+    .card-image {
+        background-color: white;   
+    }
+    #back-imgunavail {
+        position: absolute;
+        bottom: 65%;
+        left: 0;
+        right: 0;
+        font-size: xx-large;
+        z-index: 100;
+    }
+    #card-stack {
+        width: 95%;
+        height: 100%;
+        margin: auto;
+        position: relative;
+        border: 1px solid #4B84D9;
+        border-radius: 5px;
+    }
+    .home-container {
+        .iconsrow {
+            position: absolute;
+            bottom: 17%;
+            width: 100%;
+            align-items: center;
+            .col {
+                padding: 0px;
+            }
+        }
+        .centr.button-round-ios {
+            width: 55px;
+            height: 55px;
+        }
+        .centr1.button-round-ios {
+            width: 55px;
+            height: 55px;
+        }
+        .property-details {
+            position: absolute;
+            bottom: 0%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 0px 0px 3px 0px;
+            .property-title {
+                font-size: 24px;
+                font-weight: bold;
+                padding: 0px;
+                margin: 0px;
+                line-height: initial;
+                letter-spacing: .5px;
+                color: #5d5d5d;
+                text-align: center;
+                // margin: 0 auto;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                width: 100%;
+                // max-width: 250px;
+                background-color: #ffffff;
+            }
+            .property-address {
+                font-size: 16px;
+                font-weight: bold;
+                color: #b3b3b3;
+                letter-spacing: .5px;
+                background-color: #ffffff;
+            }
+            .property-currency {
+                font-size: 16px;
+                font-weight: bold;
+                color: #5d5d5d;
+                letter-spacing: .5px;
+                background-color: #ffffff;
+            }
+        }
+        #card-stack {
+            border: 1px solid #4B84D9;
+            border-radius: 5px;
+            ion-card.card.card-ios {
+                margin: 0px;
+                width: 100%;
+                border-radius: 5px;
+                position: absolute;
+                text-align: center;
+                height: 100%;
+            }
+            .card-row {
+                position: relative;
+                height: 100%;
+            }
+            .slide-container {
+                //background-image: url(../assets/imgs/building.jpg);
+                height: 77%;
+                background-repeat: no-repeat!important;
+                background-size: 100% 100%;
+                background-position: center center;
+                border-radius: 5px;
+            }
+            .title {
+                padding-top: 5px;
+                margin-top: 0px;
+                color: #4A4A4A;
+            }
+            .address {
+                padding-top: 0px;
+                margin-top: 0px;
+                color: #B5B5B5;
+                font-weight: bold;
+                font-size: 14px;
+            }
+            .detail-icon {
+                color: #F58D2E;
+                font-weight: bold;
+                font-size: 50px;
+            }
+            .reload-icon {
+                color: #C9C9C9;
+                font-weight: bold;
+                font-size: 50px;
+            }
+            .cancel-icon {
+                color: red;
+                font-weight: bold;
+                font-size: 30px;
+            }
+            .like-icon {
+                color: #2CC950;
+                font-weight: bold;
+                font-size: 30px;
+            }
+            .star-icon {
+                color: #648DE5;
+                font-weight: bold;
+                font-size: 30px;
+            }
+        }
+    }
+    .label-ios {
+        margin: 0;
+    }
+    [padding] h1:first-child,
+    [padding] h2:first-child,
+    [padding] h3:first-child,
+    [padding] h4:first-child,
+    [padding] h5:first-child,
+    [padding] h6:first-child {
+        margin-top: 0;
+    }
+    // [col-12] {
+    //     padding: 5px;
+    //     padding-top: 400px;
+    //     margin-top: -213px;
+    // }
+    .swiper-container-vertical>.swiper-pagination-bullets {
+        right: 10px;
+        top: 50%;
+        -webkit-transform: translate3d(0, -50%, 0);
+        transform: translate3d(0, -50%, 0);
+        margin-top: -200px;
+    }
+    .button-round-ios {
+        border-radius: 100px;
+        padding: 0;
+        border: 1px solid rgba(175, 175, 175, 0.4);
+        // box-shadow: 0px 5px 8px rgba(175, 175, 175, 0.4);
+        background: white;
+        // height: 50px;
+        // width: 50px;
+    }
+    .button-ios.activated {
+        background-color: white;
+        opacity: 1;
+    }
+    .header-ios .toolbar-background-ios,
+    .footer-ios .toolbar-background-ios {
+        border-style: none;
+    }
+    .toolbar-background-ios {
+        background: transparent;
+    }
+    .toolbar-title-ios {
+        text-align: left;
+        font-size: 24px;
+        font-weight: 600;
+        color: #4B84D9;
+        pointer-events: auto;
+    }
+    .toolbar-ios ion-title {
+        left: -70px;
+        top: 0;
+        padding: 0 90px 1px;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        pointer-events: none;
+    }
+    .bar-button-default-ios,
+    .bar-button-default.bar-button-ios-default,
+    .bar-button-clear-ios-default {
+        color: #488aff;
+        background-color: #EBEBEB;
+    }
+    .bar-button-ios {
+        padding: 25px 15px;
+        border-radius: 50px;
+        height: 32px;
+        border: 0;
+        font-size: 1.7rem;
+    }
+    .slider-container {
+        .slide-container {
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 5px;
+        }
+        .slide-zoom {
+            height: 100%;
+        }
+    }
+    .error{
+        margin: auto;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        color: #6f6f6f;
+    }
+}

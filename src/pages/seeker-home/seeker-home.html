@@ -1,0 +1,93 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{ 'SEEKER_HOME.TITLE' | translate }}</ion-title>
+        <ion-buttons end>
+            <button ion-button (click)="goToSettings()"><img src="assets/imgs/filter.png" /></button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding class="home-container">
+    <!-- <ion-slides pager direction="vertical" class="slider-container" *ngIf="properties.length!=0">
+        <ion-slide *ngFor="let p of properties;">
+            <ion-row>
+                <ion-col col-12 class="slide-container" [style.background]="'url(' + 'http://103.43.152.211/property-match' + p.mainimage[0].image_path + ')'"></ion-col>
+            </ion-row>
+            <ion-row style="margin-top: -40px;">
+                <ion-col col-3 style="margin-left:5px">
+                    <button ion-button round style="padding: 27px 2.6rem;" (click)="propertyDetail(p)"><ion-icon name="md-information" class="detail-icon"></ion-icon></button>
+                </ion-col>
+                <ion-col col-3 style="margin-left:-5px">
+                    <button ion-button round style="padding: 37px 2.6rem;"> <ion-icon name="md-close" class="cancel-icon"></ion-icon></button>
+                </ion-col>
+                <ion-col col-3>
+                    <button ion-button round style="padding: 37px 2.4rem;" (click)="makeRequest(p.id,p.user_id)"> <ion-icon name="md-thumbs-up" class="like-icon"></ion-icon></button>
+                </ion-col>
+                <ion-col col-3>
+                    <button ion-button round style="padding: 27px 1.6rem;"> <ion-icon name="md-star" class="star-icon"></ion-icon></button>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-12 class="title">
+                    <h3>{{p.title}}</h3>
+                </ion-col>
+                <ion-col col-12 class="address">
+                    <ion-label>{{p.address}}</ion-label>
+                </ion-col>
+            </ion-row>
+        </ion-slide>
+    </ion-slides> -->
+    <!-- <ion-slides class="slider-container" pager *ngIf="properties.length!=0">
+
+        <ion-slide *ngFor="let p of properties;" style="height: 600px!important;"> -->
+    <!-- <h3 *ngIf="cards.length == 0" style="text-align:center">No Properties Found</h3> -->
+    <div swing-stack #myswing1 [stackConfig]="stackConfig" (throwoutleft)="swipeLeft($event)" (throwoutright)="swipeRight($event)" id="card-stack">
+        <div *ngIf="cards.length > 0">
+            <ion-card #mycards1 swing-card *ngFor="let p of cards" id="{{p.id +'|'+ p.user_id}}">
+                <ion-row class="card-row">
+                    <ion-col col-12 class="slide-container card-image">
+                        <!--<div *ngIf="!!!p.image_path.length" id="back-imgunavail">{{ 'SEEKER_HOME.NO_IMG' | translate }}</div>-->
+                        <img *ngIf="!!p?.image_path" (load)="setCenter($event)" [src]="imageUrl + p.image_path" (click)="propertyDetail(p.alldata)">
+                    </ion-col>
+                </ion-row>
+                <ion-row class="iconsrow">
+                    <ion-col>
+                        <button ion-button round class="centr1" (click)="makeRequest(p.id,p.user_id, null)">
+                            <ion-icon name="md-arrow-round-back" class="reload-icon"></ion-icon>
+                        </button>
+                    </ion-col>
+                    <ion-col>
+                        <button ion-button round class="centr" (click)="makeRequest(p.id,p.user_id, null)">
+                            <ion-icon name="md-close" class="cancel-icon"></ion-icon>
+                        </button>
+                    </ion-col>
+                    <ion-col>
+                        <button ion-button icon-only round class="centr" (click)="makeRequest(p.id,p.user_id, 100)">
+                            <ion-icon name="md-thumbs-up" class="like-icon"></ion-icon>
+                        </button>
+                    </ion-col>
+                    <ion-col>
+                        <button ion-button round class="centr1" (click)="propertyDetail(p.alldata)">
+                            <ion-icon name="md-information" class="detail-icon"></ion-icon>
+                        </button>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="property-details">
+                    <h3 class="property-title">{{p.title}}</h3>
+                    <ion-label class="property-address">{{getPropertyString(p.alldata.property_type)}}</ion-label>
+                    <ion-label class="property-address">{{p.address}}</ion-label>
+                    <ion-label class="property-currency">{{ printPrice(p) }} THB
+                    </ion-label>
+                </ion-row>
+            </ion-card>
+        </div>
+        <h3 class="error" style="margin:auto; float:none;" *ngIf="!showInfo && cards.length == 0">
+            <ion-spinner name="crescent" style="margin:auto;"></ion-spinner>
+        </h3>
+        <h3 class="error" style="margin:auto; float:none;" *ngIf="showInfo && cards.length == 0">
+            {{ 'SEEKER_HOME.PROPERY_NOT_FOUND' | translate }}
+        </h3>
+    </div>
+    <!-- </ion-slide>
+    </ion-slides> -->
+</ion-content>

@@ -1,0 +1,25 @@
+page-choose-language {
+    .add-language-container {
+      background-image: url("../assets/imgs/background-login.png");
+      height: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+
+        .container-language {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .row-btn {
+                padding: 5px 10px;
+            }
+            .w-100 {
+                width: 100%;
+            }
+            .center {
+                justify-content: center;
+            }
+        }
+    }
+}

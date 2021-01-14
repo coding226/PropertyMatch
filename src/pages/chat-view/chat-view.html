@@ -1,0 +1,79 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{chat_title}}</ion-title>
+        <ion-buttons end>
+            <button ion-button><img src="assets/imgs/filter.png" /></button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="chat-container" #content>
+   <!--  <ion-row>
+        <ion-col col-4 class="col-back" (click)="addAppointment()">
+            <ion-icon name="md-calendar" class="change-color"></ion-icon>
+        </ion-col>
+        <ion-col col-4 class="col-back">
+            <ion-icon name="md-thumbs-up" class="confirm-color"></ion-icon>
+        </ion-col>
+        <ion-col col-4 class="col-back invite-open-detail">
+            <img src="./assets/imgs/information.png" (click)="openDetail()" />
+        </ion-col>
+    </ion-row> -->
+
+    <ion-row *ngFor="let msg of chat; let i of index;">
+        <ion-col col-12 class="date-time" *ngIf="msg.appointment_status == 0">
+            <ion-label>{{msg.created_at}}</ion-label>
+        </ion-col>
+        <!-- <ion-col col-12 class="sender" *ngIf="msg.sender_id == user.user_id && msg.appointment_status == 0"> -->
+            <ion-col col-12 class="sender" *ngIf="isMe(msg) && msg.appointment_status == 0">
+                <ion-label *ngIf="msg.appointment_id ==  null">{{msg.message}}</ion-label>
+                <ion-label *ngIf="msg.appointment_id != null" class="chat-message">{{msg.message}}
+                    <p (click)="acceptOrRejectAppoitment(msg.id, msg.appointment_id, 1, i)">
+                        <ion-icon name="md-checkmark" class="msg-icon confirm-invitation"></ion-icon>
+                        {{ 'COMMON.CONFIRM' | translate }}
+                    </p>
+                    <p (click)="acceptOrRejectAppoitment(msg.id, msg.appointment_id, 2, i)">
+                        <ion-icon name="md-close" class="msg-icon decline-color"></ion-icon>
+                        {{ 'COMMON.DECLINE' | translate }}
+                    </p>
+                    <p>
+                        <ion-icon name="md-calendar" class="msg-icon change-color" (click)="addAppointment()"></ion-icon>
+                        {{ 'COMMON.CHANGE' | translate }}
+                    </p>
+                </ion-label>
+            </ion-col>
+
+            <ion-col col-12 class="receiver" *ngIf="!isMe(msg)">
+                <ion-label *ngIf="msg.appointment_id == null">{{msg.message}}</ion-label>
+                <ion-label class="chat-message" *ngIf="msg.appointment_id != null">{{msg.message}}
+                    <p (click)="acceptOrRejectAppoitment(msg.id, msg.appointment_id, 1, i)">
+                        <ion-icon name="md-checkmark" class="msg-icon confirm-color"></ion-icon>
+                        {{ 'COMMON.CONFIRM' | translate }}
+                    </p>
+                    <p (click)="acceptOrRejectAppoitment(msg.id, msg.appointment_id, 2, i)">
+                        <ion-icon name="md-close" class="msg-icon decline-color"></ion-icon>
+                        {{ 'COMMON.DECLINE' | translate }}
+                    </p>
+                    <!-- <p (click)="openDetail()" class="invite-open-detail"><img src="./assets/imgs/information.png" />Details</p> -->
+                    <p>
+                        <ion-icon name="md-calendar" class="msg-icon change-color" (click)="addAppointment()"></ion-icon>
+                        {{ 'COMMON.CHANGE' | translate }}
+                    </p>
+                </ion-label>
+            </ion-col>
+            <!-- <ion-label id="myLabel" [innerHTML]="demo()">&nbsp;</ion-label> -->
+        </ion-row>
+    </ion-content>
+    <ion-footer class="footer-container">
+        <ion-row>
+            <!--<ion-col col-2 class="camera">
+                <ion-icon name="md-camera" (click)="uploadImage()"></ion-icon>
+            </ion-col>-->
+            <ion-col col-8>
+                <ion-input type="text" placeholder="Type a message..." class="text-field" [(ngModel)]="message"></ion-input>
+            </ion-col>
+            <ion-col col-2 class="send" (tap)="sendMessage()">
+                <ion-icon name="md-send"></ion-icon>
+            </ion-col>
+    </ion-row>
+</ion-footer>

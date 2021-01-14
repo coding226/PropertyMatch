@@ -1,0 +1,18 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{ 'FAVORITE_PROPERTIES.TITLE' | translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="settings-container">
+    <ion-list>
+        <button *ngFor="let property of cards; let i = index" ion-item (click)="propertyDetail(property.alldata, property.request_id)">
+            <ion-icon name="ios-home" item-start style="color: rgb(46, 126, 245);"></ion-icon>
+            {{ property.title }}
+            <p class="lower-text">{{ property.address }}</p>
+        </button>
+    </ion-list>
+    <h3 class="error" style="margin:auto; float:none; width: 100%; text-align: center;" *ngIf="!showInfo && cards.length == 0">
+        <ion-spinner name="crescent" style="margin:auto;"></ion-spinner>
+    </h3>
+</ion-content>

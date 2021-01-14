@@ -1,0 +1,201 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{ 'EDIT_PROFILE.TITLE' | translate }}</ion-title>
+        <ion-buttons end>
+            <button ion-button (click)="goToSettings()">
+                <img src="assets/imgs/filter.png"/>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="edit-container">
+    <ion-grid style="display: inline-block;">
+        <ion-row>
+            <ion-col col-12 style="text-align:center">
+                <img [src]="getProfile()" class="profile-pic" style="width: 150px; height: 150px;"/>
+                <p class="edit-icon" (tap)="editPicture()" style="margin-top: -40%;">
+                    <img src="assets/imgs/icons-edit.png"/>
+                </p>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid style="margin-top: 5px;" class="border-bottom ">
+        <h4 class="grid-description">{{ 'EDIT_PROFILE.CONTACT_INFO' | translate }}</h4>
+        <ion-row>
+            <ion-col col-12 class="description border-top">
+                <h5 class="description" style="font-weight: bold;">
+                    {{ 'SIGN_UP.NAME' | translate }}
+                </h5>
+                <ion-input class="new-input" type="text" [(ngModel)]="user.name"></ion-input>
+            </ion-col>
+            <ion-col col-12 class="description border-top">
+                <h5 class="description " style="font-weight: bold;">
+                    {{ 'EDIT_PROFILE.SHORT_DESC' | translate }}
+                </h5>
+                <ion-textarea class="description" [(ngModel)]="user.short_description" placeholder="Write your description here......"></ion-textarea>
+            </ion-col>
+        </ion-row>
+        <ion-label *ngIf="descriptionError && !user.short_description" class="error">
+            {{ 'EDIT_PROFILE.VALIDATE_SHORT_DESC' | translate }}
+        </ion-label>
+        <ion-row class="border-top">
+            <ion-col col-12 style="margin-left: -14px;">
+                <ion-item style="border:0px">
+                    <ion-label class="">{{ 'EDIT_PROFILE.DATE_OF_BIRTH' | translate }}</ion-label>
+                    <ion-datetime displayFormat="MM/DD/YYYY" pickerFormat="MM/DD/YYYY" [max]="minDate" [(ngModel)]="user.dob">
+                    </ion-datetime>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-label *ngIf="dobError && !user.dob" class="error">
+            {{ 'EDIT_PROFILE.VALIDATE_DATE_OF_BIRTH' | translate }}
+        </ion-label>
+        <ion-row class="border-top">
+            <ion-col col-12 style="margin-left: -14px;">
+                <ion-item>
+                    <ion-label class="description" style="font-size: 16px;font-weight:bold">
+                        {{ 'EDIT_PROFILE.STATUS' | translate }}</ion-label>
+                    <ion-select [(ngModel)]="user.status" interface="popover">
+                        <ion-option value="1">{{ 'COMMON.MARRIED' | translate }}</ion-option>
+                        <ion-option value="0">{{ 'COMMON.SINGLE' | translate }}</ion-option>
+                        <ion-option value="2">{{ 'COMMON.FAMILY' | translate }}</ion-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-label *ngIf="statusError && !user.status" class="error">
+            {{ 'EDIT_PROFILE.VALIDATE_STATUS' | translate }}
+        </ion-label>
+        <ion-row class="border-top">
+            <ion-col col-12 style="margin-left: -14px;">
+                <ion-item>
+                    <ion-label class="description" style="font-size: 16px;font-weight:bold">
+                        {{ 'EDIT_PROFILE.OCCUPATION' | translate }}</ion-label>
+                    <ion-select [(ngModel)]="user.occupation">
+                        <ion-option [value]="occu.id" *ngFor="let occu of occupation_array">{{ occu.occupation }}
+                        </ion-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-label *ngIf="occupationError && !user.occupation" class="error">
+            {{ 'EDIT_PROFILE.VALIDATE_OCCUPATION' | translate }}
+        </ion-label>
+    </ion-grid>
+
+    <ion-grid style="margin-top: 50px;" class="border-bottom ">
+        <h4 class="grid-description">{{ 'EDIT_PROFILE.SOCIAL_CONTACTS' | translate }}</h4>
+        <ion-row>
+            <ion-col col-12 class="description border-top">
+                <h5 class="description" style="font-weight: bold;">
+                    {{ 'EDIT_PROFILE.WEBSITE' | translate }}
+                </h5>
+                <ion-input class="new-input" type="text" [(ngModel)]="user.website_link"></ion-input>
+            </ion-col>
+            <ion-col col-12 class="description border-top">
+                <h5 class="description" style="font-weight: bold;">
+                    {{ 'EDIT_PROFILE.FACEBOOK' | translate }}
+                </h5>
+                <ion-input class="new-input" type="text" [(ngModel)]="user.facebook_link"></ion-input>
+            </ion-col>
+            <ion-col col-12 class="description border-top">
+                <h5 class="description" style="font-weight: bold;">
+                    {{ 'EDIT_PROFILE.YOUTUBE' | translate }}
+                </h5>
+                <ion-input class="new-input" type="text" [(ngModel)]="user.youtube_link"></ion-input>
+            </ion-col>
+            <ion-col col-12 class="description border-top">
+                <h5 class="description" style="font-weight: bold;">
+                    {{ 'EDIT_PROFILE.INSTAGRAM' | translate }}
+                </h5>
+                <ion-input class="new-input" type="text" [(ngModel)]="user.instagram_link"></ion-input>
+            </ion-col>
+            <ion-col col-12 class="description border-top">
+                <h5 class="description" style="font-weight: bold;">
+                    {{ 'EDIT_PROFILE.TWITTER' | translate }}
+                </h5>
+                <ion-input class="new-input" type="text" [(ngModel)]="user.twitter_link"></ion-input>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-grid style="margin-top: 50px;" class="border-bottom ">
+        <h4 class="grid-description">{{ 'EDIT_PROFILE.ADDITIONAL_INFO' | translate }}</h4>
+        <ion-row>
+            <ion-col col-12 class="description border-top">
+                <h5 class="description" style="font-weight: bold;">
+                    {{ 'EDIT_PROFILE.ADDITIONAL_NOTES' | translate }}
+                </h5>
+                <ion-input class="new-input" type="text" [(ngModel)]="user.additional_notes"></ion-input>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-grid style="margin-top: 50px;" class="border-bottom ">
+        <h4 class="grid-description">{{ 'EDIT_PROFILE.ADDRESS_INFO' | translate }}</h4>
+        <ion-row>
+            <ion-col col-12 class="description border-top">
+                <h5 class="description" style="font-weight: bold;">
+                    {{ 'EDIT_PROFILE.STREET' | translate }}
+                </h5>
+                <ion-input class="new-input" type="text" [(ngModel)]="user.street"></ion-input>
+            </ion-col>
+            <ion-col col-12 class="description border-top">
+                <h5 class="description" style="font-weight: bold;">
+                    {{ 'EDIT_PROFILE.ZIP_CODE' | translate }}
+                </h5>
+                <ion-input class="new-input" type="text" [(ngModel)]="user.zip_code"></ion-input>
+            </ion-col>
+            <ion-col col-12 class="description border-top">
+                <h5 class="description" style="font-weight: bold;">
+                    {{ 'EDIT_PROFILE.CITY' | translate }}
+                </h5>
+                <ion-input class="new-input" type="text" [(ngModel)]="user.city"></ion-input>
+            </ion-col>
+            <ion-col col-12 class="description border-top">
+                <h5 class="description" style="font-weight: bold;">
+                    {{ 'EDIT_PROFILE.COUNTRY' | translate }}
+                </h5>
+                <ion-input class="new-input" type="text" [(ngModel)]="user.country"></ion-input>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-grid style="margin-top: 50px;">
+        <h4 class="grid-description">{{ 'EDIT_PROFILE.BILLING_ADDRESS_INFO' | translate }}</h4>
+        <ion-row>
+            <ion-col col-12 class="description border-top">
+                <h5 class="description" style="font-weight: bold;">
+                    {{ 'EDIT_PROFILE.STREET' | translate }}
+                </h5>
+                <ion-input class="new-input" type="text" [(ngModel)]="user.billing_street"></ion-input>
+            </ion-col>
+            <ion-col col-12 class="description border-top">
+                <h5 class="description" style="font-weight: bold;">
+                    {{ 'EDIT_PROFILE.ZIP_CODE' | translate }}
+                </h5>
+                <ion-input class="new-input" type="text" [(ngModel)]="user.billing_zip_code"></ion-input>
+            </ion-col>
+            <ion-col col-12 class="description border-top">
+                <h5 class="description" style="font-weight: bold;">
+                    {{ 'EDIT_PROFILE.CITY' | translate }}
+                </h5>
+                <ion-input class="new-input" type="text" [(ngModel)]="user.billing_city"></ion-input>
+            </ion-col>
+            <ion-col col-12 class="description border-top">
+                <h5 class="description" style="font-weight: bold;">
+                    {{ 'EDIT_PROFILE.COUNTRY' | translate }}
+                </h5>
+                <ion-input class="new-input" type="text" [(ngModel)]="user.billing_country"></ion-input>
+            </ion-col>
+        </ion-row>
+        <ion-row class="border-top">
+            <ion-col col-12 style="text-align:center">
+                <button ion-button class="edit-btn" (click)="editProfile()">
+                    {{ 'COMMON.SAVE' | translate }}
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

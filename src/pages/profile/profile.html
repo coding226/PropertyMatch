@@ -1,0 +1,599 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title *ngIf="user_mode=='seeker'">{{ 'PROFILE.SEEKER' | translate }}</ion-title>
+        <ion-title *ngIf="user_mode=='landlord'">{{ 'PROFILE.LANDLORD' | translate }}</ion-title>
+        <ion-buttons left *ngIf="show_back">
+            <button ion-button icon-start (click)="hideBack()">
+                <ion-icon name="ios-arrow-back-outline"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-buttons right>
+            <button ion-button (click)="goToSettings()"><img src="assets/imgs/filter.png" /></button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="profile-container">
+    <ion-grid>
+        <ion-row class="main-sec" padding>
+            <ion-col col-3 class="profile-sec">
+                <img [src]="getProfile()" class="profile-pic" />
+            </ion-col>
+            <ion-col col-9>
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <h2>{{user.name}}</h2>
+                    <p *ngIf="0" class="edit" (click)="editProfile()"><img src="assets/imgs/icons-edit.png" /></p>
+                </div>
+                <div style="padding-bottom: 10px;">
+                    <ion-segment [(ngModel)]="user_mode">
+                        <ion-segment-button value="seeker">
+                            <!-- Seeker Mode -->
+                            {{ 'PROFILE.BUY_RENT' | translate }}
+                        </ion-segment-button>
+                        <ion-segment-button value="landlord">
+                            {{ 'PROFILE.LANDLORD' | translate }}
+                        </ion-segment-button>
+                    </ion-segment>
+                </div>
+                <!-- <ion-label class="description" *ngIf="user.short_description!=null">{{user.short_description}}</ion-label> -->
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <div [ngSwitch]="user_mode">
+        <ion-list *ngSwitchCase="'seeker'">
+            <ion-grid>
+                <ion-row class="border" padding>
+                    <ion-col col-6>
+                        <ion-label class="title-location" style="font-size: 16px">
+                        {{ 'PROFILE.RESET_SEARCH' | translate }}</ion-label>
+                    </ion-col>
+                    <ion-col col-6>
+                      <button ion-button block (click)="resetForm()">
+                        <span>{{ 'PROFILE.RESET_ALL' | translate }}</span>
+                      </button>
+                    </ion-col>
+                </ion-row>
+                <ion-row class="border" padding>
+                    <ion-col col-6>
+                        <ion-label class="title-location" style="font-size: 16px">
+                        {{ 'PROFILE.SEARCH_TYPE' | translate }}</ion-label>
+                    </ion-col>
+                    <ion-col col-6>
+                        <ion-select [(ngModel)]="user.search_type" interface="popover" (ionChange)="setSearchType()">
+                            <ion-option value="2">{{ 'COMMON.BOTH' | translate }}</ion-option>
+                            <ion-option value="1">{{ 'COMMON.BUY' | translate }}</ion-option>
+                            <ion-option value="0">{{ 'COMMON.RENT' | translate }}</ion-option>
+                            <!-- <ion-option value="2">Both</ion-option> -->
+                        </ion-select>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row class="border border-top" padding>
+                    <ion-col col-6>
+                        <ion-label class="title-location" style="font-size: 16px">{{ 'ADD_PROPERTY.TYPE' | translate }}
+                        </ion-label>
+                    </ion-col>
+                    <ion-col col-6>
+                        <ion-select [(ngModel)]="selectedType" multiple="true" interface="popover" (ionChange)="setPropertyType()">
+                            <ion-option [value]="type.id" *ngFor="let type of user.property_type_array">
+                                <ion-label *ngIf="currentLanguage === 'en'">
+                                    {{ type.title }}
+                                </ion-label>
+                                <ion-label *ngIf="currentLanguage === 'th'">
+                                    {{ type.title_th }}
+                                </ion-label>
+                            </ion-option>
+                        </ion-select>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row class="border border-top" padding *ngIf="user.search_type == 2 || user.search_type == 0">
+                    <ion-col col-6>
+                        <ion-label class="title-location" style="font-size: 16px">
+                        {{ 'ADD_PROPERTY.RENT_DURATION' | translate }}</ion-label>
+                    </ion-col>
+                    <ion-col col-6>
+                        <ion-select [(ngModel)]="user.rent_duration" interface="popover" (ionChange)="setRentDuration()">
+                            <ion-option value="1 Day">1 {{ 'COMMON.DAY' | translate }}</ion-option>
+                            <ion-option value="1 Week">1 {{ 'COMMON.WEEK' | translate }}</ion-option>
+                            <ion-option value="1 Month">1 {{ 'COMMON.MONTH' | translate }}</ion-option>
+                            <ion-option value="3 Month">3 {{ 'COMMON.MONTH' | translate }}</ion-option>
+                            <ion-option value="6 Month">6 {{ 'COMMON.MONTH' | translate }}</ion-option>
+                            <ion-option value="12 Month">12 {{ 'COMMON.MONTH' | translate }}</ion-option>
+                        </ion-select>
+                    </ion-col>
+                </ion-row>
+
+                <div *ngIf="user.property_type != 5">
+                    <!-- <div> -->
+                        <ion-row class="border border-top" padding>
+                            <ion-col col-6>
+                                <ion-label class="title-location" style="font-size: 16px">
+                                {{ 'ADD_PROPERTY.BEDROOMS' | translate }}</ion-label>
+                            </ion-col>
+                            <ion-col col-6>
+                                <ion-select [(ngModel)]="user.bedroom" interface="popover" (ionChange)="setBedrooms()">
+                                    <ion-option [value]="-1">{{ 'ADD_PROPERTY.ALL_OPTION' | translate }}</ion-option>
+                                    <ion-option [value]="0">{{ 'ADD_PROPERTY.STUDIO' | translate }}</ion-option>
+                                    <ion-option [value]="1">1</ion-option>
+                                    <ion-option [value]="2">2</ion-option>
+                                    <ion-option [value]="3">3</ion-option>
+                                    <ion-option [value]="4">4</ion-option>
+                                    <ion-option [value]="5">5+</ion-option>
+                                </ion-select>
+                            </ion-col>
+                        </ion-row>
+
+                    <!-- 	<ion-row class="border border-top" padding>
+						<ion-col col-6>
+							<ion-label class="title-location" style="font-size: 16px">Studios</ion-label>
+						</ion-col>
+						<ion-col col-6>
+							<ion-select [(ngModel)]="user.studio" interface="popover" (ionChange)="setStudios()">
+								<ion-option [value]="1">1</ion-option>
+								<ion-option [value]="2">2</ion-option>
+								<ion-option [value]="3">3</ion-option>
+								<ion-option [value]="4">4+</ion-option>
+							</ion-select>
+						</ion-col>
+					</ion-row> -->
+
+                    <ion-row class="border border-top" padding>
+                        <ion-col col-6>
+                            <ion-label class="title-location" style="font-size: 16px">
+                            {{ 'ADD_PROPERTY.BATHROOMS' | translate }}</ion-label>
+                        </ion-col>
+                        <ion-col col-6>
+                            <ion-select [(ngModel)]="user.bathroom" interface="popover" (ionChange)="setBathrooms()">
+                                <ion-option [value]="-1">{{ 'ADD_PROPERTY.ALL_OPTION' | translate }}</ion-option>
+                                <ion-option [value]="1">1</ion-option>
+                                <ion-option [value]="2">2</ion-option>
+                                <ion-option [value]="3">3</ion-option>
+                                <ion-option [value]="4">4</ion-option>
+                                <ion-option [value]="5">5+</ion-option>
+                            </ion-select>
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row class="border border-top" padding>
+                        <ion-col col-6>
+                            <ion-label class="title-location" style="font-size: 16px">{{ 'COMMON.SQM' | translate }}
+                            </ion-label>
+                        </ion-col>
+                        <ion-col col-6>
+                            <ion-select [(ngModel)]="user.sqm" interface="popover" (ionChange)="setSqm()">
+                                <ion-option [value]="15">15</ion-option>
+                                <ion-option [value]="25">25</ion-option>
+                                <ion-option [value]="30">30</ion-option>
+                                <ion-option [value]="35">35</ion-option>
+                                <ion-option [value]="45">45</ion-option>
+                                <ion-option [value]="55">55</ion-option>
+                                <ion-option [value]="65">65</ion-option>
+                                <ion-option [value]="75">75</ion-option>
+                                <ion-option [value]="85">85</ion-option>
+                                <ion-option [value]="100">100</ion-option>
+                                <ion-option [value]="150">150+</ion-option>
+                            </ion-select>
+                        </ion-col>
+                    </ion-row>
+                </div>
+                <ion-row class="border border-top" padding *ngIf="checkType()">
+                    <ion-col col-6>
+                        <ion-label class="title-location" style="font-size: 16px">{{ 'COMMON.WAH' | translate }}
+                        </ion-label>
+                    </ion-col>
+                    <ion-col col-6>
+                        <ion-select [(ngModel)]="user.sqm" interface="popover" (ionChange)="setSqm()">
+                            <ion-option [value]="15">15</ion-option>
+                            <ion-option [value]="25">25</ion-option>
+                            <ion-option [value]="30">30</ion-option>
+                            <ion-option [value]="35">35</ion-option>
+                            <ion-option [value]="45">45</ion-option>
+                            <ion-option [value]="55">55</ion-option>
+                            <ion-option [value]="65">65</ion-option>
+                            <ion-option [value]="75">75</ion-option>
+                            <ion-option [value]="85">85</ion-option>
+                            <ion-option [value]="100">100</ion-option>
+                            <ion-option [value]="150">150+</ion-option>
+                        </ion-select>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col col-8 padding style="padding-bottom: 0px;">
+                        <h2 class="title-location">{{ 'ADD_PROPERTY.LOCATION' | translate }}</h2>
+                    </ion-col>
+                    <ion-col col-4 padding style="padding-bottom: 0px;">
+                        <h2 class="title-location">{{ 'PROFILE.RADIUS' | translate }}</h2>
+                    </ion-col>
+                    <ion-col col-6 class="border" padding>
+                        <google-places-autocomplete (callback)="choosePlace($event[0])" key="AIzaSyB6vIBAKwd750IR-Sh-ushM72hCiBwyZaw"></google-places-autocomplete>
+                    </ion-col>
+                    <ion-col col-2 class="border" padding>
+                        <ion-icon style="font-size: 50px;" name="map" (click)="showMap()"></ion-icon>
+
+                        <!-- <button class="location" ion-button icon-end full (click)="showMap()"> Current Location
+							&nbsp;<span style="color:#C1C0C9;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;"
+							*ngIf="user.city!='undefined'">{{user.city}}<span *ngIf="user.country!='undefined'"
+							style="color:#C1C0C9">,
+						{{user.country}}</span></span>
+						&nbsp; &nbsp; &nbsp; <img src="assets/imgs/locations.png" />
+					</button> -->
+                </ion-col>
+                <ion-col col-4 class="border" padding style="padding-top: 24px">
+                    <ion-select (ionChange)="changeSearchRang()" [placeholder]="'PROFILE.RADIUS' | translate" [(ngModel)]="user.search_range" [okText]="'OKEY' | translate" [cancelText]="'DISMISS' | translate">
+
+                        <ion-option [value]="0.1">100 {{ 'COMMON.M' | translate }}</ion-option>
+                        <ion-option [value]="0.5">500 {{ 'COMMON.M' | translate }}</ion-option>
+                        <ion-option [value]="1">1 {{ 'COMMON.KM' | translate }}</ion-option>
+                        <ion-option [value]="2">2 {{ 'COMMON.KM' | translate }}</ion-option>
+                        <ion-option [value]="5">5 {{ 'COMMON.KM' | translate }}</ion-option>
+                        <ion-option [value]="10">10 {{ 'COMMON.KM' | translate }}</ion-option>
+                        <ion-option [value]="15">15 {{ 'COMMON.KM' | translate }}</ion-option>
+                        <ion-option [value]="20">20 {{ 'COMMON.KM' | translate }}</ion-option>
+                        <ion-option [value]="50">50 {{ 'COMMON.KM' | translate }}</ion-option>
+
+                    </ion-select>
+                </ion-col>
+
+            </ion-row>
+        </ion-grid>
+        <div [ngClass]="{largeHeight: hideMap, smallHeight: !hideMap}">
+            <div #map id="map"></div>
+        </div>
+        <button ion-button block *ngIf="hideMap" class="set-location" (click)="setLocation()">
+            {{ 'ADD_PROPERTY.SET_NEW_LOCATION' | translate }}
+        </button>
+
+        <ion-row class="border" padding *ngIf="user.search_type == 1">
+            <ion-label class="title-location" col-12 style="font-size: 16px">
+            {{ 'PROFILE.PRICE_RANGE_BUY' | translate }}</ion-label>
+            <ion-col col-4 style="padding-left: 0px;">
+                <ion-select [(ngModel)]="user.price_range" interface="popover" (ionChange)="setPriceRange()" style="background: #F7F7F7;border-radius: 5px;">
+                    <ion-option [value]="price.value" *ngFor="let price of priceRange.sale.from">
+                        {{price.displayValue}}
+                    </ion-option>
+                </ion-select>
+            </ion-col>
+            <ion-col col-2 style="padding-top: 15px">
+                <span><b>{{ 'COMMON.THB' | translate }}</b></span>
+            </ion-col>
+            <ion-col col-4>
+                <ion-select [(ngModel)]="user.price_range2" interface="popover" (ionChange)="setPriceRange()" style="background: #F7F7F7;border-radius: 5px;">
+                    <ion-option [value]="price.value" *ngFor="let price of priceRange.sale.to">
+                    {{price.displayValue}}</ion-option>
+                </ion-select>
+            </ion-col>
+            <ion-col col-2 style="padding-top: 15px">
+                <span><b>{{ 'COMMON.THB' | translate }}</b></span>
+            </ion-col>
+        </ion-row>
+        <ion-row class="border" padding *ngIf="user.search_type == 0">
+            <ion-label class="title-location" col-12 style="font-size: 16px">
+            {{ 'PROFILE.PRICE_RANGE_RENT' | translate }}</ion-label>
+            <ion-col col-4 style="padding-left: 0px;">
+                <ion-select [(ngModel)]="user.price_range" interface="popover" (ionChange)="setPriceRange()" style="background: #F7F7F7;border-radius: 5px;">
+                    <ion-option [value]="price.value" *ngFor="let price of priceRange.rent.from">
+                        {{price.displayValue}}
+                    </ion-option>
+                </ion-select>
+            </ion-col>
+            <ion-col col-2 style="padding-top: 15px">
+                <span><b>{{ 'COMMON.THB' | translate }}</b></span>
+            </ion-col>
+            <ion-col col-4>
+                <ion-select [(ngModel)]="user.price_range2" interface="popover" (ionChange)="setPriceRange()" style="background: #F7F7F7;border-radius: 5px;">
+                    <ion-option [value]="price.value" *ngFor="let price of priceRange.rent.to">
+                        {{price.displayValue}}
+                    </ion-option>
+                </ion-select>
+            </ion-col>
+            <ion-col col-2 style="padding-top: 15px">
+                <span><b>{{ 'COMMON.THB' | translate }}</b></span>
+            </ion-col>
+        </ion-row>
+        <ion-row class="border" padding *ngIf="user.search_type == 2 || !user.search_type">
+            <ion-label class="title-location" col-12 style="font-size: 16px">
+            {{ 'PROFILE.PRICE_RANGE_BUY_RENT' | translate }}</ion-label>
+            <ion-col col-4 style="padding-left: 0px;">
+                <ion-select [(ngModel)]="user.price_range" interface="popover" (ionChange)="setPriceRange()" style="background: #F7F7F7;border-radius: 5px;">
+                    <ion-option [value]="price.value" *ngFor="let price of priceRange.rent.from">
+                        {{price.displayValue}}
+                    </ion-option>
+                </ion-select>
+            </ion-col>
+            <ion-col col-2 style="padding-top: 15px">
+                <span><b>{{ 'COMMON.THB' | translate }}</b></span>
+            </ion-col>
+            <ion-col col-4>
+                <ion-select [(ngModel)]="user.price_range2" interface="popover" (ionChange)="setPriceRange()" style="background: #F7F7F7;border-radius: 5px;">
+                    <ion-option [value]="price.value" *ngFor="let price of priceRange.sale.to">
+                        {{price.displayValue}}
+                    </ion-option>
+                </ion-select>
+            </ion-col>
+            <ion-col col-2 style="padding-top: 15px">
+                <span><b>{{ 'COMMON.THB' | translate }}</b></span>
+            </ion-col>
+        </ion-row>
+            <ion-row class="border" padding>
+                <ion-col col-12>
+                    <ion-label class="title-location" style="font-size: 16px">
+                    {{ 'ADD_PROPERTY.ATTRIBUTES' | translate }}</ion-label>
+                </ion-col>
+                <ion-item *ngFor="let attr of user.attribute; let i = index" class="attribute">
+                    <ion-label *ngIf="currentLanguage === 'en'" style="font-size:12px">
+                        {{ attr.title }}
+                    </ion-label>
+                    <ion-label *ngIf="currentLanguage === 'th'" style="font-size:12px">
+                        {{ attr.title_th }}
+                    </ion-label>
+                    <ion-checkbox color="dark" [checked]="attr.checked" (click)="setAttribute(attr)"></ion-checkbox>
+                </ion-item>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <button *ngIf="!showSaved" ion-button block (click)="showSaved = true">
+                      <span>{{ 'COMMON.SAVE' | translate }}</span>
+                  </button>
+                  <button *ngIf="showSaved" ion-button color="secondary" block (click)="false">
+                      <span>{{ 'COMMON.SAVED' | translate }}</span>
+                  </button>
+              </ion-col>
+          </ion-row>
+      </ion-list>
+
+      <ion-list *ngSwitchCase="'landlord'">
+        <ng-container *ngIf="show_upper_section">
+
+            <!-- manage request section-->
+            <ion-item class="match-request border" (click)="showMatchedProperties()">
+                <h2 *ngIf="!show_manageRequest">{{ 'PROFILE.MATCH_REQUEST' | translate }}</h2>
+                <h2 *ngIf="show_manageRequest">{{ 'PROFILE.MANAGE_PROPERTIES' | translate }}</h2>
+            </ion-item>
+            <ion-item class="match-request-no border" (click)="showMatchedProperties()" *ngIf="!show_manageRequest">
+                <h2>{{total_requests}}</h2>
+            </ion-item>
+              <ion-item class="match-request-no border" (click)="showMatchedProperties()" *ngIf="show_manageRequest">
+            </ion-item>
+
+
+            <ion-segment [(ngModel)]="request_type" style="background: white;" *ngIf="show_manageRequest && 0">
+                <ion-segment-button value="boosted" class="round-btn">
+                    {{ 'PROFILE.BOOSTED_MATCHED_REQUEST' | translate }}
+                </ion-segment-button>
+                <ion-segment-button value="matched" class="round-btn">
+                    {{ 'PROFILE.MATCHED_REQUEST' | translate }}
+                </ion-segment-button>
+            </ion-segment>
+            <div [ngSwitch]="request_type" *ngIf="show_manageRequest">
+                <ion-list *ngSwitchCase="'boosted'">
+                        <!-- <ion-item style="padding-top: 15px;">
+							<ion-avatar item-start>
+								<img src="assets/imgs/building.jpg">
+								<span class="notification-badge" style="bottom: 35px;">13</span>
+							</ion-avatar>
+							<h2 class="title">2 Bedroom Condo,Ekamai </h2>
+							<span class="lower-title">Matches</span>
+							<span class="lower-title">Appointments</span>
+							<span class="lower-title">Chats</span>
+							<p class="count">13</p>
+							<p class="count">12</p>
+							<p class="count">6</p>
+							<ion-item>
+								<ion-thumbnail item-start>
+									<img src="assets/imgs/profile.jpg" style="border-radius:50%">
+								</ion-thumbnail>
+								<h2 class="chat-user">Steven</h2>
+								<span class="req-user"><ion-icon name="md-close" style="color: #C1C0C9;"></ion-icon></span>
+								<span class="req-user"><ion-icon name="md-thumbs-up" style="color: #538FEC;"></ion-icon></span>
+							</ion-item>
+						</ion-item> -->
+                        <ion-label class="no-messages">{{ 'PROFILE.NO_BOOSTED_MATCHED_REQUEST' | translate }}
+                        </ion-label>
+                    </ion-list>
+                    <ion-list *ngSwitchCase="'matched'">
+                        <ng-container *ngFor="let p of matched_requests">
+                            <ion-item style="padding-top: 15px;">
+                                <ion-avatar item-start (click)="hideUpperSection(p)">
+                                    <img src="{{api.IMAGE_URL}}{{p.images[0].image_path}}">
+                                    <!-- <span class="notification-badge">{{p.matches}}</span> -->
+                                </ion-avatar>
+                                <h2 class="title" (click)="hideUpperSection(p)">{{p.title}}</h2>
+                                <span class="lower-title" (click)="hideUpperSection(p)">{{ 'PROFILE.MATCHES' | translate }}</span>
+                                <span class="lower-title" (click)="hideUpperSection(p)">{{ 'PROFILE.APPOINTMENT' | translate }}</span>
+                                <span class="lower-title" (click)="hideUpperSection(p)">{{ 'PROFILE.CHATS' | translate }}</span><br>
+                                <span class="lower-title count" (click)="hideUpperSection(p)">{{p.matches}}</span>
+                                <span class="lower-title count" style="padding-left: 70px;" (click)="hideUpperSection(p)">{{p.chat}}</span>
+                                <span class="lower-title count" style="padding-left: 60px;" (click)="hideUpperSection(p)">{{p.appointment}}</span>
+                            </ion-item>
+                            <div *ngFor="let seeker of p.requests">
+                                <div class="joined-user-section">
+                                    <div class="profile-section">
+                                        <img src="{{api.IMAGE_URL}}{{seeker.profile_image}}" *ngIf="seeker.profile_image!=null">
+                                        <img src="assets/imgs/profile.png" *ngIf="seeker.profile_image==null">
+                                    </div>
+                                    <div class="name-button-section">
+                                        <div class="name-section">
+                                            <h6 class="title user-name">{{seeker.user.name}} </h6>
+                                        </div>
+                                        <div class="button-section">
+                                            <span item-right (click)="declineAcceptRequest(seeker.id,99,seeker.user.name)">
+                                                <ion-icon name="md-close" style="color: #C1C0C9;"></ion-icon>
+                                            </span>
+                                            <span item-right (click)="declineAcceptRequest(seeker.id,1,seeker.user.name)">
+                                                <ion-icon name="md-thumbs-up" style="color: #538FEC;"></ion-icon>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ion-label class="no-messages" *ngIf="total_requests==0">
+                        {{ 'PROFILE.NO_MATCHED_REQUEST' | translate }}</ion-label>
+                    </ion-list>
+                </div>
+
+                <!-- manage properties section-->
+                <ion-item class="manage-properties" *ngIf="0">
+                    <h2>{{ 'PROFILE.MANAGE_PROPERTIES' | translate }}</h2>
+                </ion-item>
+                <ion-item class="new-property-btn" *ngIf="!show_manageRequest">
+                    <button ion-button block class="button" (click)="addNewProperty()">
+                      <ion-icon name="add" style="font-weight: bold;"></ion-icon>
+                      {{ 'PROFILE.ADD_NEW_PROPERTIES' | translate }}
+                  </button>
+              </ion-item>
+              <ng-container *ngIf="!show_manageRequest">
+                <ion-item style="padding-top: 15px;" *ngFor="let p of landlord_all_properties">
+                    <ion-row>
+                        <ion-col col-3>
+                            <ion-avatar item-start (click)="hideUpperSection(p)">
+                                <img *ngIf="p.images.length===0" src="assets/imgs/blue-home.png">
+                                <img *ngIf="p.images.length > 0" src="{{api.IMAGE_URL}}{{p.images[0].image_path}}">
+                                <span class="notification-badge">{{p.matches}}</span>
+                            </ion-avatar>
+                        </ion-col>
+                        <ion-col col-9>
+                            <ion-row>
+                                <ion-col col-12>
+                                    <h2 class="title">{{p.title}}</h2>
+                                </ion-col>
+                                <ion-col col-12>
+                                    <span style="font-size: 26px;" (click)="editProperty(p)" class="lower-title">
+                                       <ion-icon name="settings"></ion-icon>
+                                   </span>
+                                   <span style="font-size: 26px; margin-left: 10px;" (click)="deleteProperty(p)" class="lower-title">
+                                       <ion-icon name="trash"></ion-icon>
+                                   </span>
+                               </ion-col>
+                           </ion-row>
+                       </ion-col>
+                   </ion-row>
+
+
+               </ion-item>
+           </ng-container>
+       </ng-container>
+
+
+       <!-- pending view request and chat appointment section-->
+       <ng-container *ngIf="!show_upper_section">
+        <ion-grid>
+            <ion-row>
+                <ion-col col-6 class="view-btn">
+                    <button ion-button item-left block class="button" (click)="viewPendingRequest()">
+                        {{ 'PROFILE.VIEW_PENDING_MATCHES' | translate }}
+                    </button>
+                </ion-col>
+                <ion-col col-6 class="view-btn" (click)="goToLandlord()">
+                    <button ion-button item-left block class="button">
+                        {{ 'PROFILE.VIEW_PROPERTIES' | translate }}
+                    </button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+        <ion-card style="margin-top: 15px;">
+            <ion-card-header>
+                <ion-item style="padding-top: 15px;">
+                    <!-- <ion-avatar item-start>
+                        <img src="{{api.IMAGE_URL}}{{.image_path}}">
+                        <span class="notification-badge">{{selected_property.matches}}</span>
+                    </ion-avatar> -->
+                    <h2 class="title">{{selected_property.title}}</h2>
+                    <span class="lower-title" style="padding:0 !important">{{ 'PROFILE.MATCHES' | translate }}</span>
+                    <span class="lower-title" style="padding:0 !important">{{ 'PROFILE.APPOINTMENT' | translate }}</span>
+                    <span class="lower-title" style="padding:0 !important">{{ 'PROFILE.CHATS' | translate }}</span><br>
+                    <span class="lower-title count">{{selected_property.matches}}</span>
+                    <span class="lower-title count" style="padding-left: 70px;">{{selected_property.appointment}}</span>
+                    <span class="lower-title count" style="padding-left: 60px;">{{selected_property.chat}}</span>
+                </ion-item>
+            </ion-card-header>
+
+            <ion-card-content>
+                <div style="margin-top: 4%;">
+                    <ion-segment [(ngModel)]="landlord_section">
+                        <ion-segment-button value="chats" class="inner-segments-btn">
+                            {{ 'PROFILE.CHATS' | translate }}
+                        </ion-segment-button>
+                        <ion-segment-button value="appointments" class="inner-segments-btn">
+                            {{ 'PROFILE.APPOINTMENT' | translate }}
+                        </ion-segment-button>
+                    </ion-segment>
+                </div>
+
+                <div [ngSwitch]="landlord_section">
+                    <ion-list *ngSwitchCase="'chats'">
+                        <ion-row *ngFor="let chats of selected_property.accepted_user" (click)="chat(chats.id,selected_property.title)">
+                            <ion-col col-2>
+                                <img src="assets/imgs/profile.png" style="border-radius:50%;margin-top: 20%;" *ngIf="chats.profile_image==null">
+                                <img src="{{api.IMAGE_URL}}{{chats.profile_image}}" style="border-radius:50%;margin-top: 20%;" *ngIf="chats.profile_image!=null">
+                            </ion-col>
+                            <ion-col col-5 class="border">
+                                <h2 class="chat-user">{{chats.name}}</h2><br>
+                                <ion-label class="msg" *ngIf="chats.message!=null">{{chats.message}}</ion-label>
+                                <ion-label class="msg" *ngIf="chats.message==null">
+                                    {{ 'PROFILE.NOT_MESSAGE' | translate }}
+                                </ion-label>
+                            </ion-col>
+                            <ion-col col-5 style="margin-top: 10px;" class="border">
+                                <span class="chat-time" (click)="chats()" *ngIf="chats.time!=null">
+                                   {{ 'PROFILE.LAST_REPLY' | translate }}
+                               </span><br>
+                               <span class="chat-time" (click)="chats()" *ngIf="chats.time!=null">{{chats.time | date:'medium'}}</span>
+                           </ion-col>
+                       </ion-row>
+                       <ion-label class="no-messages" *ngIf="selected_property && selected_property.accepted_user && selected_property.accepted_user.length==0">
+                        {{ 'PROFILE.NO_CHATS' | translate }}
+                    </ion-label>
+                </ion-list>
+
+                <ion-list *ngSwitchCase="'appointments'">
+                    <ion-row *ngFor="let appointments of selected_property.appointment_user; let i = index">
+                        <ion-col col-2>
+                            <img src="assets/imgs/profile.png" style="border-radius:50%;margin-top: 20%;" *ngIf="appointments.profile_image==null">
+                            <img src="{{api.IMAGE_URL}}{{appointments.profile_image}}" style="border-radius:50%;margin-top: 20%;" *ngIf="appointments.profile_image!=null">
+                        </ion-col>
+                        <ion-col col-6 class="border">
+                            <h2 class="chat-user" style="margin-top: 10px;" *ngIf="appointments.sender_name!=user.name">
+                                {{appointments.sender_name}}
+                            </h2>
+                            <h2 class="chat-user" style="margin-top: 10px;" *ngIf="appointments.sender_name==user.name">
+                                {{appointments.receiver_name}}
+                            </h2>
+                            <ion-label class="appoint-req" *ngIf="appointments.appointment_status == 0">
+                                {{ 'PROFILE.APPOINTMENT' | translate }}&nbsp;{{ 'COMMON.REQUESTED' | translate }}
+                            </ion-label>
+                            <ion-label class="appoint-req" *ngIf="appointments.appointment_status == 1">
+                                {{ 'PROFILE.APPOINTMENT' | translate }}&nbsp;{{ 'COMMON.ACCEPTED' | translate }}
+                            </ion-label>
+                            <ion-label class="appoint-req" *ngIf="appointments.appointment_status == 2">
+                                {{ 'PROFILE.APPOINTMENT' | translate }}&nbsp;{{ 'COMMON.DECLINED' | translate }}
+                            </ion-label>
+                            <p class="appoint-time">
+                                {{appointments.appointment_date + ' ' + appointments.appointment_time | date:'medium'}}
+                            </p>
+                        </ion-col>
+                        <ion-col col-4 style="margin-top: 10px;" class="border">
+                            <span class="appoint-icon" (click)="acceptOrRejectAppointment(appointments, i, 2)" *ngIf="appointments.appointment_status == 1 || appointments.appointment_status == 0">
+                               <ion-icon name="md-close"></ion-icon>
+                           </span>
+                                        <!-- <span class="appoint-icon" (click)="acceptOrRejectAppointment(appointments, i, 1)" *ngIf="appointments.appointment_status == 2 || appointments.appointment_status == 0">
+											<ion-icon name="md-thumbs-up" style="color:#538FEC"></ion-icon>
+										</span>
+										<span class="appoint-icon" (tap)="addAppointment(appointments.property_id,appointments.receiver_id==user.user_id?appointments.sender_id:appointments.receiver_id,selected_property.title)">
+											<ion-icon name="md-calendar"></ion-icon>
+										</span> -->
+                                    </ion-col>
+                                </ion-row>
+                                <ion-label class="no-messages" *ngIf="selected_property && selected_property.appointment_user && selected_property.appointment_user.length==0">
+                                    {{ 'PROFILE.NO_APPOINTMENT' | translate }}
+                                </ion-label>
+                            </ion-list>
+                        </div>
+                    </ion-card-content>
+                </ion-card>
+            </ng-container>
+        </ion-list>
+    </div>
+</ion-content>
